@@ -18,51 +18,45 @@ exports.index = function (req, res){
 };
 
 exports.update = function(req, res){
-    var model = new Model(req.body.title, req.body.tags);
+    var model = new Model(req.body.text, req.body.tags);
 
     client.index({
         index: es_index,
         type: es_type,
-        body: model
+        body: model,
+        omit_norms: true
     }, function (error, response) {
         client.indices.refresh( function (error, response, status){
-            console.log("refreshed : ", response);
+            res.send(200);
         });
-        console.log(response);
-        res.send(200);
     });
 }
+
 exports.search = function(req, res){
     // GET request (query)
-
     if (!req.query.tags){
-        client.search({
-            index: es_index,
-            type: es_type,
-            q: ''
-        }, function (error, response) {
-            console.log("did default query");
-            res.json(response);
-        });
+        res.send("no tags entered, use ?tags=tag1&tags=tag2...&tags=tagN");
     } else {
+        var tagList = req.query.tags;
+        if (!(tagList instanceof Array)) {
+            tagList = [];
+            tagList.push(req.query.tags);
+        }
+
         client.search({
             index: es_index,
             type: es_type,
             body: {
                 query: {
-                    
-                        
-                            "terms": {
-                                tags: req.query.tags
-                            }
-                        
-                    
+                    terms: { tags: tagList }
                 }
             }
-            
         }, function (error, response) {
-            console.log("did tag query");
-            res.json(response);
+            if (error) {
+                res.send("we got error");
+            } else {
+                res.json(response.hits.hits);
+            }    
         });
     }
 }

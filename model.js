@@ -1,10 +1,8 @@
-// title = title (string), tags = array of string tags
-var Model = function(title, tags){
-    this.body = {
-        title: title,
-        tags: tags,
-        published: true
-    }
+// text = letter, tags = array of string tags
+var Model = function(text, tags){
+    this.text = text;
+    this.tags = tags;
+    this.published = true;
 }
 
 module.exports = exports = Model;

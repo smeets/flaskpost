@@ -4,9 +4,8 @@ $(document).ready(function() {
         var letterContents = $("#letter").val();
 
         var data = {
-            letter: letterContents,
-            title: "hejsan",
-            tags: ["log", "message", "t1"]
+            text: letterContents,
+            tags: $("#tags").val().split(" ")
         };
 
         log("threw the bottle into the sea");
