@@ -37,7 +37,7 @@ if ('development' == app.get('env')) {
 
 app.get('/api', api.index);
 app.get('/api/bottles', api.search);
-app.post('/api/bottles', api.update);
+app.put('/api/bottles', api.update);
 
 app.get("/", routes.index);
 app.post("/", internaut.post);

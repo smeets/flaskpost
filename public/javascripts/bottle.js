@@ -1,12 +1,19 @@
 $(document).ready(function() {
     log("bottle loaded");
     $("#throw").on("click", function() {
-        var letterContents = {letter: $("#letter").val()};
+        var letterContents = $("#letter").val();
+
+        var data = {
+            letter: letterContents,
+            title: "hejsan",
+            tags: ["log", "message", "t1"]
+        };
+
         log("threw the bottle into the sea");
         $.ajax({
-            type: 'POST',
-            url: "/",	
-            data: letterContents,
+            type: 'PUT',
+            url: "/api/bottles",	
+            data: data,
             dataType: 'json',
             success: function(data) {
                 log('success!!!!');

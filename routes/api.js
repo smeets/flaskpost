@@ -18,27 +18,51 @@ exports.index = function (req, res){
 };
 
 exports.update = function(req, res){
-    console.log("hejj");
-    console.log(req.body);
-
     var model = new Model(req.body.title, req.body.tags);
-    console.log(model);
 
-    // client.index({
-    //     index: es_index,
-    //     type: es_type,
-    //     body: {
-    //         title: 'Test 1',
-    //         tags: ['y', 'z'],
-    //         published: true,
-    //     }
-    // }, function (error, response, status) {
-
-    // });
+    client.index({
+        index: es_index,
+        type: es_type,
+        body: model
+    }, function (error, response) {
+        client.indices.refresh( function (error, response, status){
+            console.log("refreshed : ", response);
+        });
+        console.log(response);
+        res.send(200);
+    });
 }
 exports.search = function(req, res){
     // GET request (query)
 
-    res.json({"query tags": req.query.tags});
-    
+    if (!req.query.tags){
+        client.search({
+            index: es_index,
+            type: es_type,
+            q: ''
+        }, function (error, response) {
+            console.log("did default query");
+            res.json(response);
+        });
+    } else {
+        client.search({
+            index: es_index,
+            type: es_type,
+            body: {
+                query: {
+                    
+                        
+                            "terms": {
+                                tags: req.query.tags
+                            }
+                        
+                    
+                }
+            }
+            
+        }, function (error, response) {
+            console.log("did tag query");
+            res.json(response);
+        });
+    }
 }
