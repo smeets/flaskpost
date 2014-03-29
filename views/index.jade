@@ -3,6 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  form(method="post" action="/")
-      input(value="sup" name="letter")#letter
-      button(type="submit" name="castBottle")#throw throw bottle into the internautic sea!
+  textarea(name="letter")#letter
+  br
+  button(type="submit")#throw throw bottle into the internautic sea!
+  button(type="submit")#burn burn the letter to a crisp!
