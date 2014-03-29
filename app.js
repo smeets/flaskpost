@@ -29,7 +29,6 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-a
 app.get('/api', api.index);
 app.post("/", internaut.post);
 
