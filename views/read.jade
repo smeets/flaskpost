@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    div.grid-container#test
+        h1.grid-100.align-center.mobile-grid-100= title
+        p.grid-100.mobile-grid-100 Welcome to #{title}
+        input(type="text" placeholder="search").mobile-grid-50.grid-20.prefix-40#search-bar
+        button(type="submit").mobile-prefix-5.mobile-grid-40.mobile-suffix-10.grid-15.prefix-35#search search
+        div#results
+        canvas#canvas
