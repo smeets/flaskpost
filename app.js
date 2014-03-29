@@ -19,10 +19,13 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
+
 app.use(express.logger('dev'));
 app.use(express.json());
+
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -32,8 +35,10 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/api', api.index);
-app.get('/api/bottles', api.get);
-app.put('/api/bottles', api.put);
+app.get('/api/bottles', api.search);
+app.post('/api/bottles', api.update);
+
+app.get("/", routes.index);
 app.post("/", internaut.post);
 
 http.createServer(app).listen(app.get('port'), function(){
