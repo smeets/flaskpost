@@ -8,6 +8,7 @@ var routes = require('./routes');
 var api = require('./routes/api');
 var http = require('http');
 var path = require('path');
+var internaut = require("./internaut-waves.js")
 
 var app = express();
 
@@ -28,8 +29,9 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+a
 app.get('/api', api.index);
+app.post("/", internaut.post);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
