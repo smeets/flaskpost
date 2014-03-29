@@ -48,7 +48,14 @@ exports.search = function(req, res){
             type: es_type,
             body: {
                 query: {
-                    terms: { tags: tagList }
+                    filtered: {
+                        query: {
+                            terms: { tags: tagList }
+                        },
+                        filter: {
+                            term: { published: true }
+                        }
+                    }
                 }
             }
         }, function (error, response) {

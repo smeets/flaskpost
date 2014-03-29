@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    div.grid-container#test
+        h1.grid-100.align-center.mobile-grid-100= title
+        p.grid-100.mobile-grid-100 Welcome to #{title}
+        textarea(rows="10" name="letter").mobile-grid-100.grid-100#letter
+        input(type="text" placeholder="tags").mobile-grid-50.grid-20.prefix-40#tags
+        button(type="submit").mobile-prefix-5.mobile-grid-40.mobile-suffix-10.grid-15.prefix-35#throw into the sea!
+        button(type="submit").mobile-suffix-5.mobile-grid-40.grid-15#burn burn the letter!

@@ -23,6 +23,11 @@ $(document).ready(function() {
 
     $("#burn").on("click", function() {
         log("burned the contents of the letter");
+        $("#test").toggle("slide");
+    });
+
+    $("#search").on("click", function() {
+        log("searched for a bottle");
     });
 
     function log(msg) {
