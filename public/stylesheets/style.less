@@ -1,6 +1,12 @@
+@bg-color: #E8E8E8;
+@letter-color: #F5F5F5;
+@misc-text: #E84D5B;
+
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: @misc-text;
   margin-left: 0;
+  background: @bg-color;
 }
 
 a {
@@ -23,5 +29,9 @@ a {
     .btn();
 }
 #letter {
-    resize: none
+    resize: none;
+    border: none;
+    border-radius: 5px;
+    background: @letter-color;
+    // color: @bg-color;
 }
