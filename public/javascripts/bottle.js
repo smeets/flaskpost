@@ -1,17 +1,22 @@
 $(document).ready(function() {
     log("bottle loaded");
     $("#throw").on("click", function() {
-        var letterContents = $("#letter").val();
+        var letterContents = {letter: $("#letter").val()};
+        log("threw the bottle into the sea");
         $.ajax({
             type: 'POST',
+            url: "/",	
             data: letterContents,
-            contentType: 'application/json',
-            url: "http://localhost",	
+            dataType: 'json',
             success: function(data) {
                 log('success!!!!');
-                log(letterContents);
+                log(data);
             }
         });
+    });
+
+    $("#burn").on("click", function() {
+        log("burned the contents of the letter");
     });
 
     function log(msg) {
