@@ -6,8 +6,10 @@
 var express = require('express');
 var routes = require('./routes');
 var api = require('./routes/api');
+
 var http = require('http');
 var path = require('path');
+
 var internaut = require("./internaut-waves.js")
 
 var app = express();
@@ -30,6 +32,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/api', api.index);
+app.get('/api/bottles', api.get);
+app.put('/api/bottles', api.put);
 app.post("/", internaut.post);
 
 http.createServer(app).listen(app.get('port'), function(){

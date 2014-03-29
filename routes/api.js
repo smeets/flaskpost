@@ -16,3 +16,11 @@ exports.index = function(req, res){
         console.trace(error.message);
     });
 };
+
+exports.put = function(req, res){
+    // PUT request (create/update)
+}
+exports.get = function(req, res){
+    // GET request (query)
+
+}
