@@ -26,6 +26,10 @@ $(document).ready(function() {
         log("burned the contents of the letter");
     });
 
+    $("#search").on("click", function() {
+        log("searched for a bottle");
+    });
+
     function log(msg) {
         console.log("[bottle] " + msg);
     }

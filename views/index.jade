@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  textarea(name="letter")#letter
-  br
-  button(type="submit")#throw throw bottle into the internautic sea!
-  button(type="submit")#burn burn the letter to a crisp!
+    div.grid-container
+    h1.grid-100.mobile-grid-100= title
+    p.grid-100.mobile-grid-100 Welcome to #{title}
+    textarea(rows="10" name="letter").mobile-grid-100.grid-100#letter
+    button(type="submit").grid-20.mobile-grid-45.suffix-60#throw into the sea!
+    button(type="submit").grid-20.mobile-grid-45#burn burn the letter!
