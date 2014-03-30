@@ -43,7 +43,12 @@ $(document).ready(function() {
     log("bottle loaded");
 
     $("#throw").on("click", function() {
-        var letterContents = $("#found").text() + "\n\n" + $("#letter").val();
+        var letterContents = $("#letter").val();
+        // if we're reading and appending to an old letter
+        if ($("#found").text().length > 0) {
+            // append comments
+            letterContents = $("#found").text() + "\n\n" + letterContents;
+        }
 
         var data = {
             text: letterContents,
@@ -56,10 +61,7 @@ $(document).ready(function() {
             url: "/api/bottles",	
             data: data,
             dataType: 'json',
-            success: function(data) {
-                log('success!!!!');
-                log(data);
-            }
+            success: window.location = "/", 
         });
     });
 
