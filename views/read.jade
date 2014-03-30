@@ -19,9 +19,11 @@ block content
         button(type="submit").mobile-prefix-10.mobile-grid-40.grid-15.prefix-35.btn#throw into the sea!
         button(type="submit").mobile-grid-40.grid-15.btn#burn burn letter!
 
-    div#hidden-when-bottle
-        div.mobile-grid-90.mobile-prefix-5.grid-60.prefix-35.suffix-25#tag-list
-        div.mobile-grid-90.mobile-suffix-5.grid-25.prefix-35.suffix-35
-            input(type="text" name="tags" placeholder="enter tags").tm-input.typeahead#search-bar
-        button(type="submit").btn.mobile-prefix-5.mobile-grid-90.prefix-40.grid-20.suffix-40#search flask search
-        div#results
+        div#hidden-when-bottle
+            div.mobile-grid-90.mobile-prefix-5.grid-60.prefix-35.suffix-25#tag-list
+            p.mobile-grid-90.mobile-suffix-5.grid-100#notice.
+                no bottles found :(
+            div.mobile-grid-90.mobile-suffix-5.grid-20.prefix-40.suffix-35
+                input(type="text" name="tags" placeholder="enter tags").tm-input.typeahead#search-bar
+            button(type="submit").btn.mobile-prefix-5.mobile-grid-90.prefix-40.grid-20.suffix-40#search flask search
+            div#results

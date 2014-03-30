@@ -45,8 +45,12 @@ $(document).ready(function() {
     var results = [];
 
     $("#throw").on("click", function() {
-        var letterContents = $("#found").text() + "\n\n" + $("#letter-desktop").val();
-        console.log(letterContents);
+        var letterContents = $("#letter").val();
+        // if we're reading and appending to an old letter
+        if ($("#found").text().length > 0) {
+            // append comments
+            letterContents = $("#found").text() + "\n\n" + letterContents;
+        }
 
         var data = {
             text: letterContents,
@@ -60,10 +64,7 @@ $(document).ready(function() {
             url: "/api/bottles",	
             data: data,
             dataType: 'json',
-            success: function(data) {
-                log('success!!!!');
-                log(data);
-            }
+            success: window.location = "/", 
         });
     });
 
@@ -121,7 +122,7 @@ $(document).ready(function() {
                         });
                     }
                 } else {
-                    alert("no search results");
+                    $("#notice").css("opacity", "100").css("visibility", "visible").hide().fadeIn("fast");
                 }
             }
         });

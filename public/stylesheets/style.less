@@ -176,7 +176,6 @@ a {
     .letter-desktop();
     border-top-style: solid;
 }
-
 .typeahead,
 .tt-query,
 .tt-hint {
@@ -186,10 +185,25 @@ a {
   font-size: 24px;
   line-height: 30px;
   border: 2px solid #ccc;
+  // font: 16px "TravelingTypewriter", Helvetica, Arial, sans-serif;
   -webkit-border-radius: 8px;
      -moz-border-radius: 8px;
           border-radius: 8px;
   outline: none;
+}
+
+@media (min-width: 768px) {
+    .typeahead,
+    .tt-query,
+    .tt-hint {
+      margin-left: -13px;
+  }
+}
+
+#notice {
+    text-align: center;
+    // visibility: hidden;
+    opacity: 0;
 }
 
 .typeahead {
