@@ -1606,7 +1606,8 @@
             try {
                 !$input.attr("dir") && $input.attr("dir", "auto");
             } catch (e) {}
-            return $input.css("background-color", "#fff");
+            return $input.wrap($wrapper).parent().prepend(withHint ? $hint : null).append($dropdown)
+;
         }
         function getBackgroundStyles($el) {
             return {
