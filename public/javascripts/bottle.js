@@ -43,7 +43,7 @@ $(document).ready(function() {
 
         var data = {
             text: letterContents,
-            tags: $("#tags").val().split(" ")
+            tags: tagApi.tagsManager('tags')
         };
 
         log("threw the bottle into the sea");
