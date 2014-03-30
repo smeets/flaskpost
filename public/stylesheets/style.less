@@ -1,18 +1,81 @@
+@bg-color: #F2F2F2;
+@letter-color: #FFFFFF;
+@misc-text: #000;
+@btn-color: #E5E5E5;
+
+@font-face{
+    font-family: "TravelingTypewriter";
+    src: url('TravelingTypewriter.ttf'),
+    url('TravelingTypewriter.eot'); /* IE */
+}
+
+:focus {
+    outline: 0;
+}
+
+a img {
+    border: 0;
+}
+
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "TravelingTypewriter", Helvetica, Arial, sans-serif;
+  color: @misc-text;
   margin-left: 0;
+  background: @bg-color;
 }
 
 a {
   color: #00B7FF;
 }
 
+.desktop-spacing {
+    padding: 70px;
+}
+.mobile-spacing {
+    padding: 0px;
+}
+
+.box-shadow (@x: 0; @y: 0; @blur: 1px; @color: #000) {
+  -moz-box-shadow: @arguments;
+  -webkit-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+
 .btn {
+    font: 14px "TravelingTypewriter", Helvetica, Arial, sans-serif;
+	.rounded-corners(2px);
+    // font-weight: bold;
+	.box-shadow(0px; 1px);
+
+	color: #000;
+	background-color: @btn-color;
+	border: 2px solid (@btn-color - #111);
+	padding: 5px 15px 6px;
+	// margin: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: (@btn-color + #444);
+    }
+
+    // active feels weird on mobile devices
+    &:active {
+        background-color: (@btn-color + #111);
+    }
     margin-top: 10px;
 }
 
 .align-center {
     text-align: center;
+}
+
+a {
+    color:inherit;
+    text-decoration: none;
+}
+
+#title {
+    font-size: 50px;
 }
 
 #burn {
@@ -22,6 +85,28 @@ a {
 #throw {
     .btn();
 }
-#letter {
-    resize: none
+
+.rounded-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+#letter-desktop {
+    font: 14px "TravelingTypewriter", Helvetica, Arial, sans-serif;
+    resize: none;
+    border: none;
+    padding-top: 10px;
+    // border-radius: 5px;
+    background: @letter-color;
+    .box-shadow(0px,0px,1px,#000);
+    // color: @bg-color;
+    overflow:hidden;
+}
+
+#letter-desktop {
+    padding-left: 50px;
+    padding-right: 50px;
 }
