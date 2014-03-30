@@ -64,8 +64,6 @@ $(document).ready(function() {
 
     var results = [];
     $("#search").on("click", function() {
-        var bottle = new Bottle(50, 100, 50, 50, 150 , 250);
-                    bottle.draw();
         var tags = { "tags" : $("#search-bar").val().split(" ") } ;
         $.ajax({
             type: 'GET',

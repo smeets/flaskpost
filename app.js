@@ -27,6 +27,7 @@ app.use(express.methodOverride());
 
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.favicon(path.join(__dirname, "public/bottle.ico")));
 
 // development only
 if ('development' == app.get('env')) {

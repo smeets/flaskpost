@@ -4,7 +4,9 @@ block content
     div.grid-container
         div.desktop-spacing.hide-on-mobile
         div.mobile-spacing.hide-on-desktop
-        textarea(rows="36" name="letter" maxlength="2500").hide-on-mobile.grid-60.prefix-20.suffix-20#letter-desktop
+        textarea(rows="25" name="letter" maxlength="2500" readonly).hide-on-mobile.grid-60.prefix-20.suffix-20#letter-desktop
+        textarea(rows="5" name="letter" maxlength="2500").hide-on-mobile.grid-60.prefix-20.suffix-20#letter-desktop.addendum
+        textarea(rows="5" name="letter" maxlength="2500").hide-on-mobile.grid-60.prefix-20.suffix-20#letter-desktop.addendum2
         textarea(rows="18" name="letter" maxlength="2500").hide-on-desktop.mobile-grid-90.mobile-prefix-5.mobile-suffix-5#letter
         // input(type="text" placeholder="tags").mobile-grid-50.grid-20.prefix-40#tags
         button(type="submit").mobile-prefix-10.mobile-grid-40.grid-15.prefix-35.btn#throw into the sea!
