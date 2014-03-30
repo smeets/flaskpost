@@ -1,5 +1,5 @@
 @bg-color: #F2F2F2;
-@letter-color: #FFFFFF;
+@letter-color: #FEFEFE;
 @misc-text: #000;
 @btn-color: #E5E5E5;
 
@@ -41,12 +41,28 @@ a {
   box-shadow: @arguments;
 }
 
+.footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 8pt;
+    font-weight: italic;
+}
+
+#welcome {
+    font-size: 20pt;
+    text-align: center;
+}
+
+.text {
+    font-size: 14pt;
+}
+
 .btn {
     font: 14px "TravelingTypewriter", Helvetica, Arial, sans-serif;
 	.rounded-corners(2px);
     // font-weight: bold;
 	.box-shadow(0px; 1px);
-
+    width: 100%;
 	color: #000;
 	background-color: @btn-color;
 	border: 2px solid (@btn-color - #111);
@@ -79,11 +95,9 @@ a {
 }
 
 #burn {
-    .btn();
 }
 
 #throw {
-    .btn();
 }
 
 .rounded-corners (@radius: 5px) {
@@ -94,21 +108,25 @@ a {
   border-radius: @radius;
 }
 
-#letter-desktop {
+#letter {
     font: 14px "TravelingTypewriter", Helvetica, Arial, sans-serif;
     resize: none;
     border: none;
     padding-top: 10px;
     // border-radius: 5px;
     background: @letter-color;
-    .box-shadow(0px,0px,1px,#000);
+    .box-shadow(0px,0px,1px,#AAA);
     // color: @bg-color;
-    overflow:hidden;
 }
 
 #letter-desktop {
+    #letter();
+    overflow:hidden;
+    font-size: 16px;
+    padding-top: 25px;
     padding-left: 50px;
     padding-right: 50px;
+    text-align: justify;
 }
 
 .typeahead,
