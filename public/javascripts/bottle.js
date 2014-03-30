@@ -44,7 +44,6 @@ $(document).ready(function() {
 
     $("#throw").on("click", function() {
         var letterContents = $("#found").text() + "\n\n" + $("#letter").val();
-        alert(letterContents);
 
         var data = {
             text: letterContents,
