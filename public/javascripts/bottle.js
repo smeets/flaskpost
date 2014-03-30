@@ -99,7 +99,8 @@ $(document).ready(function() {
                         btn.on("click", function (){
                             var id = $(this).attr('id');
                             console.log(results[id]);
-                            alert(results[id]._source.text);
+                            $("#found").text(results[id]._source.text);
+                            $("#hidden-until-bottle").slideToggle();
                         });
                     }
                 } else {

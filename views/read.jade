@@ -2,6 +2,18 @@ extends layout
 
 block content
     div.grid-container
+        div#hidden-until-bottle 
+            div.letter-desktop-top(style="padding-left: 50px; padding-right: 50px").hide-on-mobile.tablet-grid-80.tablet-prefix-10.grid-60.prefix-20.suffix-20.original#found.
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mi leo, viverra ac ipsum sed, fringilla semper dolor. Ut nec mi at quam lobortis feugiat. Donec neque arcu, euismod in sagittis sit amet, tempor non lorem. Ut nec venenatis nunc. Aliquam vehicula turpis nisl, sit amet mattis orci adipiscing id. Donec consequat felis eu erat congue feugiat. Phasellus nec sodales metus. Nullam sit amet nisl quis magna pellentesque elementum. Suspendisse vehicula sit amet felis id laoreet. Proin eget nunc lorem. Proin luctus dui sit amet magna convallis, non gravida metus dignissim. Fusce eget mi et leo euismod ultricies vitae a neque.
+                 ~ Lorentis Magnum
+            div.letter-top.hide-on-desktop.hide-on-tablet.mobile-grid-90.mobile-prefix-5.original.
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mi leo, viverra ac ipsum sed, fringilla semper dolor. Ut nec mi at quam lobortis feugiat. Donec neque arcu, euismod in sagittis sit amet, tempor non lorem. Ut nec venenatis nunc. Aliquam vehicula turpis nisl, sit amet mattis orci adipiscing id. Donec consequat felis eu erat congue feugiat. Phasellus nec sodales metus. Nullam sit amet nisl quis magna pellentesque elementum. Suspendisse vehicula sit amet felis id laoreet. Proin eget nunc lorem. Proin luctus dui sit amet magna convallis, non gravida metus dignissim. Fusce eget mi et leo euismod ultricies vitae a neque.
+                 ~ Lorentis Magnum
+
+            textarea(rows="14" name="letter" maxlength="2500").hide-on-mobile.tablet-grid-80.tablet-prefix-10.grid-60.prefix-20.suffix-20#letter-desktop
+            textarea(rows="13" name="letter" maxlength="2500").hide-on-desktop.hide-on-tablet.mobile-grid-90.mobile-prefix-5.mobile-suffix-5#letter
+            button(type="submit").mobile-prefix-10.mobile-grid-40.grid-15.prefix-35.btn#throw into the sea!
+            button(type="submit").mobile-grid-40.grid-15.btn#burn burn letter!
         div.mobile-grid-90.mobile-prefix-5.grid-60.prefix-35.suffix-25#tag-list
         div.mobile-grid-90.mobile-suffix-5.grid-30.prefix-35.suffix-35
             input(type="text" name="tags" placeholder="enter tags").tm-input.typeahead#search-bar
