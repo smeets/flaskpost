@@ -5,13 +5,11 @@ var Model = require('../model.js');
 
 var client = new elasticsearch.Client({
     host: '192.168.1.146:9200', // TODO: alter to proper host url
-  log: 'trace'
+    log: 'trace'
 });
 
 var globalTagListChecker = {};
-var globalTagList = [
-    "tag1", "tag2", "tag3"
-];
+var globalTagList = [];
 
 var es_index = "flaskpost",
     es_type = "bottle";
@@ -23,17 +21,20 @@ exports.index = function (req, res){
 };
 
 exports.tags = function (req, res) {
+    console.log("sending tags...");
+    console.log(globalTagList);
     res.json(globalTagList);
-    console.log("sending tags");
 }
 
 exports.update = function(req, res){
     var model = new Model(req.body.text, req.body.tags);
 
-    for (var tag in req.body.tags) {
-        if (!globalTagListChecker.hasOwnProperty()) {
+    for (var i = 0; i < req.body.tags.length; i++) {
+        var tag = req.body.tags[i];
+        if (!globalTagListChecker.hasOwnProperty(tag)) {
             globalTagList.push(tag);
             globalTagListChecker[tag] = globalTagList.length;
+            console.log("adding tag: " + tag);
         }
     }
 

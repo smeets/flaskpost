@@ -11,8 +11,10 @@ $(document).ready(function() {
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
+        // 600000
         prefetch: {
             url: '/api/tags',
+            ttl: 1,
             filter: function(list) {
                 return $.map(list, function(tag) { return { name: tag }; });
             }
