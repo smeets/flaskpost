@@ -112,7 +112,7 @@ $(document).ready(function() {
                         });
                     }
                 } else {
-                    alert("no search results");
+                    $("#notice").css("opacity", "100").css("visibility", "visible").hide().fadeIn("fast");
                 }
             }
         });
