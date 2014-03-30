@@ -40,16 +40,30 @@ exports.update = function(req, res){
         }
     }
 
-    client.index({
-        index: es_index,
-        type: es_type,
-        body: model,
-        omit_norms: true
-    }, function (error, response) {
-        client.indices.refresh( function (error, response, status){
-            res.send(200);
+    if (req.body.index) {
+        client.index({
+            index: es_index,
+            type: es_type,
+            id: req.body.index,
+            body: model,
+            omit_norms: true
+        }, function (error, response) {
+            client.indices.refresh( function (error, response, status){
+                res.send(200);
+            });
         });
-    });
+    } else {
+        client.index({
+            index: es_index,
+            type: es_type,
+            body: model,
+            omit_norms: true
+        }, function (error, response) {
+            client.indices.refresh( function (error, response, status){
+                res.send(200);
+            });
+        });
+    }
 }
 
 exports.search = function(req, res){

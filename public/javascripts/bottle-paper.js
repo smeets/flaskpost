@@ -11,13 +11,6 @@ var path, springs;
 var size = view.size * [1.2, 1];
 var sizeY;
 
-var hitOptions = {
-    segments: false,
-    stroke: false,
-    fill: true,
-    tolerance: 0
-};
-
 var Spring = function(a, b, strength, restLength) {
     this.a = a;
     this.b = b;
@@ -72,7 +65,36 @@ function onResize() {
         path.remove();
     size = view.bounds.size * [2, 1];
     path = createPath(0.1);
+    console.log("resized: " + view.viewSize.width + "x" + view.viewSize.height);
 }
+
+var canvas = $("#canvas1");
+
+$(window).resize(resizeAndRedrawCanvas);
+
+function resizeAndRedrawCanvas()
+{
+    var desiredWidth = $(window).width();
+    var desiredHeight = $('#test').height();
+    var windowHeight = $(window).height();
+
+    if (desiredHeight < windowHeight) {
+        desiredHeight = windowHeight;
+    };
+
+    console.log(desiredWidth + "*" + desiredHeight);
+    console.log(canvas);
+
+    canvas.width = desiredWidth;
+    canvas.height = desiredHeight; 
+
+    view.viewSize = new Size(desiredWidth, desiredHeight);
+    view.draw();
+};
+
+resizeAndRedrawCanvas();
+
+
 
 
 function onFrame(event) {

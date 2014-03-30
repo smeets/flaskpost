@@ -20,8 +20,7 @@ a img {
 body {
   font: 14px "TravelingTypewriter", Helvetica, Arial, sans-serif;
   color: @misc-text;
-  margin-bottom: 0;
-  margin-left: 0;
+  margin: 0;
   background: @bg-color;
 }
 
@@ -238,6 +237,9 @@ a {
   font-size: 18px;
   line-height: 24px;
 }
+
+html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
+canvas { display:block; }
 
 .tt-suggestion.tt-cursor {
   color: #fff;

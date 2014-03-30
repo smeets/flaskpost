@@ -1,8 +1,4 @@
 $(document).ready(function() {
-    var canvas = document.getElementById("canvas1");
-    canvas.width  = window.outerWidth;
-    canvas.height = window.outerHeight;
-
     // resize the text area automagically
     $("#letter-desktop").autosize();
 
@@ -46,13 +42,16 @@ $(document).ready(function() {
     });
 
     log("bottle loaded");
+    var results = [];
 
     $("#throw").on("click", function() {
-        var letterContents = $("#found").text() + "\n\n" + $("#letter").val();
+        var letterContents = $("#found").text() + "\n\n" + $("#letter-desktop").val();
+        console.log(letterContents);
 
         var data = {
             text: letterContents,
-            tags: tagApi.tagsManager('tags')
+            tags: tagApi.tagsManager('tags'),
+            index: $("#found").attr("result-id")
         };
 
         log("threw the bottle into the sea");
@@ -68,8 +67,9 @@ $(document).ready(function() {
         });
     });
 
-    $("#letter-desktop").on("keydown", function() {
+    $("#letter-desktop").on("keyup", function() {
         var contents = $("#letter-desktop").val();
+        log(contents);
         $("#letter").val(contents);
     });
 
@@ -83,9 +83,19 @@ $(document).ready(function() {
         $("#burn").toggle("slide", {direction: "right"});
     });
 
-    var results = [];
+    
     $("#search").on("click", function() {
         var tags = { "tags" : tagApi.tagsManager('tags') } ;
+        var vals = $("#search-bar").val();
+
+        if (!(tags.tags instanceof Array))
+            tags = [];
+
+        if (vals.length > 0) {
+            console.log(vals);
+            tags.tags.push(vals);
+        }
+
         $.ajax({
             type: 'GET',
             url: "/api/bottles",    
@@ -105,6 +115,7 @@ $(document).ready(function() {
                             var id = $(this).attr('id');
                             console.log(results[id]);
                             $("#found").text(results[id]._source.text);
+                            $("#found").attr("result-id", results[id]._id);
                             $("#hidden-until-bottle").slideToggle();
                             $("#hidden-when-bottle").slideToggle();
                         });

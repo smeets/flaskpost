@@ -10,10 +10,10 @@ html
   body
     a(href="/")
         h1.grid-100.align-center.mobile-grid-100#title= title
-    block content
-
-    div(style="position:absolute; top:0; left:0; z-index:-1; width:100%; height:100%;")#backgrounddiv
-        canvas(style='background:4D9BCC;')#canvas1
+    div.grid-container#test
+        block content
+    canvas(style='background:4D9BCC; z-index: -1; position: absolute; top:0; left: 0; display: block;')#canvas1
+    
  
     // div.footer.grid-100.mobile-grid-100.
     //     made by cobleigh & smeets
@@ -22,7 +22,7 @@ html
     script(src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js")
     script(src="/javascripts/jquery.autosize.min.js")
 
-    script(type="text/javascript" src="/javascripts/paper.js")
+    script(src="/javascripts/paper.js")
     script(src="/javascripts/tagmanager.js")
     script(src="/javascripts/typeahead.js")
 
