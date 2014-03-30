@@ -59,7 +59,7 @@ $(document).ready(function() {
 
         var data = {
             text: letterContents,
-            index: $("#found").attr("result-id")
+            index: $("#found").attr("result-id"),
             tags: tagArr
         };
 
@@ -91,25 +91,20 @@ $(document).ready(function() {
 
     
     $("#search").on("click", function() {
-<<<<<<< HEAD
-        var tags = { "tags" : tagApi.tagsManager('tags') } ;
+        //START OF WTF
+        var tags = tagApi.tagsManager('tags');
         var vals = $("#search-bar").val();
-
-        if (!(tags.tags instanceof Array))
-            tags = [];
 
         if (vals.length > 0) {
             console.log(vals);
-            tags.tags.push(vals);
+            tags.push(vals);
         }
-=======
 
-        var tagArr = tagApi.tagsManager('tags');
-        for(var i=0; i < tagArr.length; i++) {
-             tagArr[i] = tagArr[i].replace(/#/g, '');
+        for(var i=0; i < tags.length; i++) {
+             tags[i] = tags[i].replace(/#/, '');
         }
-        var tags = { "tags" : tagArr };
->>>>>>> 9a7a778850a4f1d4e7b015c2773bc6f9930b4980
+        tags = { "tags" : tags };
+        //END OF WTF
 
         $.ajax({
             type: 'GET',
