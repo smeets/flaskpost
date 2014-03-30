@@ -6,6 +6,9 @@ block content
         div.mobile-spacing.hide-on-desktop
         textarea(rows="38" name="letter" maxlength="2500").hide-on-mobile.grid-70.prefix-15.suffix-15#letter-desktop
         textarea(rows="17" name="letter" maxlength="2500").hide-on-desktop.mobile-grid-80.mobile-prefix-10.mobile-suffix-10#letter
-        // input(type="text" placeholder="tags").mobile-grid-50.grid-20.prefix-40#tags
+        div.grid-50.prefix-25.suffix-25#tag-list
+        div.mobile-grid-50.grid-20.prefix-40.suffix-40
+            input(type="text" name="tags" placeholder="enter tags").tm-input.typeahead#search-bar
+
         button(type="submit").mobile-prefix-10.mobile-grid-40.grid-15.prefix-35#throw into the sea!
         button(type="submit").mobile-suffix-5.mobile-grid-40.grid-15#burn burn letter!

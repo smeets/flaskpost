@@ -8,6 +8,11 @@ var client = new elasticsearch.Client({
   log: 'trace'
 });
 
+var globalTagListChecker = {};
+var globalTagList = [
+    "tag1", "tag2", "tag3"
+];
+
 var es_index = "flaskpost",
     es_type = "bottle";
 
@@ -17,8 +22,20 @@ exports.index = function (req, res){
     });
 };
 
+exports.tags = function (req, res) {
+    res.json(globalTagList);
+    console.log("sending tags");
+}
+
 exports.update = function(req, res){
     var model = new Model(req.body.text, req.body.tags);
+
+    for (var tag in req.body.tags) {
+        if (!globalTagListChecker.hasOwnProperty()) {
+            globalTagList.push(tag);
+            globalTagListChecker[tag] = globalTagList.length;
+        }
+    }
 
     client.index({
         index: es_index,
