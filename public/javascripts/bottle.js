@@ -112,13 +112,13 @@ $(document).ready(function() {
         }
        
         for(var i=0; i < tagArr.length; i++) {
-            tagArr[i] = tagArr[i].replace(/#/g, '');
+            tagArr[i] = tagArr[i].replace(/#/, '');
         }
 
         $.ajax({
             type: 'GET',
             url: "/api/bottles",    
-            data: { "tags" : tagArr },
+            data: {"tags" : tagArr},
             dataType: 'json',
             success: function(data) {
                 results = data;
