@@ -1,8 +1,10 @@
 $(document).ready(function() {
-
     var canvas = document.getElementById("canvas1");
     canvas.width  = window.outerWidth;
     canvas.height = window.outerHeight;
+
+    // resize the text area automagically
+    $("#letter-desktop").autosize();
 
     // TAG MANAGER
     var tagApi = jQuery("#search-bar").tagsManager({
@@ -46,7 +48,7 @@ $(document).ready(function() {
     log("bottle loaded");
 
     $("#throw").on("click", function() {
-        var letterContents = $("#letter").val();
+        var letterContents = $("#found").text() + "\n\n" + $("#letter").val();
 
         var data = {
             text: letterContents,
@@ -64,6 +66,16 @@ $(document).ready(function() {
                 log(data);
             }
         });
+    });
+
+    $("#letter-desktop").on("keydown", function() {
+        var contents = $("#letter-desktop").val();
+        $("#letter").val(contents);
+    });
+
+    $("#letter").on("keydown", function() {
+        var contents = $("#letter").val();
+        $("#letter-desktop").val(contents);
     });
 
     $("#burn").on("click", function() {
@@ -92,7 +104,9 @@ $(document).ready(function() {
                         btn.on("click", function (){
                             var id = $(this).attr('id');
                             console.log(results[id]);
-                            alert(results[id]._source.text);
+                            $("#found").text(results[id]._source.text);
+                            $("#hidden-until-bottle").slideToggle();
+                            $("#hidden-when-bottle").slideToggle();
                         });
                     }
                 } else {

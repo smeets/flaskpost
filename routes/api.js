@@ -28,13 +28,15 @@ exports.tags = function (req, res) {
 
 exports.update = function(req, res){
     var model = new Model(req.body.text, req.body.tags);
-
-    for (var i = 0; i < req.body.tags.length; i++) {
-        var tag = req.body.tags[i];
-        if (!globalTagListChecker.hasOwnProperty(tag)) {
-            globalTagList.push(tag);
-            globalTagListChecker[tag] = globalTagList.length;
-            console.log("adding tag: " + tag);
+    
+    if (req.body.tags) {
+        for (var i = 0; i < req.body.tags.length; i++) {
+            var tag = req.body.tags[i];
+            if (!globalTagListChecker.hasOwnProperty(tag)) {
+                globalTagList.push(tag);
+                globalTagListChecker[tag] = globalTagList.length;
+                console.log("adding tag: " + tag);
+            }
         }
     }
 

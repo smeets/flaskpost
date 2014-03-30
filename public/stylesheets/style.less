@@ -32,8 +32,18 @@ a {
 .desktop-spacing {
     padding: 70px;
 }
+
 .mobile-spacing {
     padding: 0px;
+}
+
+#tag-height {
+    height: 20px;
+}
+
+#tag-list {
+    padding-top: 2px;
+    height: 30px;
 }
 
 .box-shadow (@x: 0; @y: 0; @blur: 1px; @color: #000) {
@@ -50,6 +60,7 @@ a {
 }
 
 #welcome {
+
     font-size: 20pt;
     text-align: center;
 }
@@ -61,14 +72,12 @@ a {
 .btn {
     font: 14px "TravelingTypewriter", Helvetica, Arial, sans-serif;
 	.rounded-corners(2px);
-    // font-weight: bold;
 	.box-shadow(0px; 1px);
     width: 100%;
 	color: #000;
 	background-color: @btn-color;
 	border: 2px solid (@btn-color - #111);
-	padding: 5px 15px 6px;
-	// margin: 5px;
+	padding: 5px 0px 6px;
     cursor: pointer;
 
     &:hover {
@@ -101,6 +110,10 @@ a {
 #throw {
 }
 
+#hidden-until-bottle {
+    display: none;
+}
+
 .rounded-corners (@radius: 5px) {
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
@@ -114,27 +127,55 @@ a {
     resize: none;
     border: none;
     padding-top: 10px;
-    // border-radius: 5px;
     background: @letter-color;
-    .box-shadow(0px,0px,1px,#AAA);
-    // color: @bg-color;
+    border: 1px solid @btn-color;
+    overflow:hidden;
 }
 
 .addendum {
     color: #707070;
 }
-.addendum2 {
+.original {
     color: #A0A0A0;
 }
-
+// NOTE THE ID
 #letter-desktop {
     #letter();
-    overflow:hidden;
     font-size: 16px;
     padding-top: 25px;
     padding-left: 50px;
     padding-right: 50px;
+    padding-bottom: 25px;
+}
+
+.letter-desktop {
+    .letter();
+    font-size: 16px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 25px;
+}
+
+.letter {
+    font: 14px "TravelingTypewriter", Helvetica, Arial, sans-serif;
+    background: @letter-color;
+    border: 1px solid @btn-color;
+    border-bottom: none;
+    border-top-style: none;
+    // color: @bg-color;
     text-align: justify;
+    padding-top: 25px;
+    white-space: pre-wrap;
+}
+
+.letter-top {
+    .letter();
+    border-top-style: solid;
+}
+
+.letter-desktop-top {
+    .letter-desktop();
+    border-top-style: solid;
 }
 
 .typeahead,
@@ -143,7 +184,6 @@ a {
   width: 100%;
   height: 30px;
   padding: 8px 12px;
-  padding-right: 0px 0px;
   font-size: 24px;
   line-height: 30px;
   border: 2px solid #ccc;
