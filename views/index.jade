@@ -2,8 +2,8 @@ extends layout
 
 block content
     div.grid-container#test
-        p.grid-100.mobile-grid-100 Welcome to #{title}
-        a(href="/read").mobile-prefix-5.mobile-grid-40.mobile-suffix-10.grid-20.prefix-40.suffix-40.align-center
+        p.grid-100.mobile-grid-100#welcome Welcome to #{title}
+        a(href="/read").mobile-grid-100.grid-30.prefix-35
             button.btn gather some bottles!
-        a(href="/write").mobile-suffix-5.mobile-grid-40.grid-20.prefix-40.suffix-40.align-center
+        a(href="/write").mobile-grid-100.grid-30.prefix-35
             button.btn write your own message in a bottle!

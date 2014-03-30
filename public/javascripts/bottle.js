@@ -193,13 +193,7 @@ $(document).ready(function() {
     });
 
 
-    // naive line check, to prevent users from exceeding length of letter with
-    // newlines
-    // doesn't really work that well
-    var maxLines = 40;
     $("#letter").keydown(function(event) {
-        var newLines = $(this).val().split("\n").length;
-
         // if(event.keyCode == 13) {
         //     playSound(1);
         // } else {

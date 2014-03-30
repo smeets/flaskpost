@@ -41,12 +41,17 @@ a {
   box-shadow: @arguments;
 }
 
+#welcome {
+    font-size: 20pt;
+    text-align: center;
+}
+
 .btn {
     font: 14px "TravelingTypewriter", Helvetica, Arial, sans-serif;
 	.rounded-corners(2px);
     // font-weight: bold;
 	.box-shadow(0px; 1px);
-
+    width: 100%;
 	color: #000;
 	background-color: @btn-color;
 	border: 2px solid (@btn-color - #111);
@@ -79,11 +84,9 @@ a {
 }
 
 #burn {
-    .btn();
 }
 
 #throw {
-    .btn();
 }
 
 .rounded-corners (@radius: 5px) {
