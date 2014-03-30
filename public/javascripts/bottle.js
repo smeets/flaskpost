@@ -55,9 +55,14 @@ $(document).ready(function() {
             letterContents = $("#found").text() + "\n\n" + letterContents;
         }
 
+        var tagArr = tagApi.tagsManager('tags');
+        for(var i=0; i < tagArr.length; i++) {
+             tagArr[i] = tagArr[i].replace(/#/g, '');
+        }
+
         var data = {
             text: letterContents,
-            tags: tagApi.tagsManager('tags')
+            tags: tagArr
         };
 
         log("threw the bottle into the sea");
@@ -87,7 +92,13 @@ $(document).ready(function() {
 
     var results = [];
     $("#search").on("click", function() {
-        var tags = { "tags" : tagApi.tagsManager('tags') } ;
+
+        var tagArr = tagApi.tagsManager('tags');
+        for(var i=0; i < tagArr.length; i++) {
+             tagArr[i] = tagArr[i].replace(/#/g, '');
+        }
+        var tags = { "tags" : tagArr };
+
         $.ajax({
             type: 'GET',
             url: "/api/bottles",    

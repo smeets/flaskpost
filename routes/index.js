@@ -14,3 +14,4 @@ exports.write = function(req, res){
 exports.read = function(req, res){
   res.render('read', { title: 'flaskpost' });
 };
+

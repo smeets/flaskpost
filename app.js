@@ -40,6 +40,9 @@ app.put('/api/bottles', api.update);
 app.get('/api/tags', api.tags);
 
 app.get("/", routes.index);
+app.get("/about", function(req, res) {
+    res.render('about', { title: 'flaskpost' })
+});
 app.get('/write', routes.write);
 app.get('/read', routes.read);
 

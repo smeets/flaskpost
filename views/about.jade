@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    div.grid-container#test
+        // p.grid-100.mobile-grid-100#welcome Welcome to #{title}
+        p.mobile-grid-100.grid-50.prefix-25.suffix-25.text.water-protection
+            | This site was made over a weekend in March by 
+            a(href="http://github.com/murlocbrand").linky.
+                Axel Smeets
+            |  and 
+            a(href="http://twitter.com/cblgh").linky.
+                Alexander Cobleigh
+            |.
+
+        p.mobile-grid-100.grid-50.prefix-25.suffix-25.text.water-protection
+            |If you for some reason want to mine the letters posted here, then
+            | by all means use our api.
+            br
+            | Instructions:
+ 
+        p.mobile-grid-100.grid-50.prefix-25.suffix-25.text.water-protection.
+           write some letters yeah? 
+        a(href="/read").mobile-grid-100.grid-30.prefix-35
+            button.btn gather some bottles!
+
+        a(href="/write").mobile-grid-100.grid-30.prefix-35
+            button.btn write your own message in a bottle!
