@@ -12,10 +12,17 @@ block content
 
             textarea(rows="14" name="letter" maxlength="2500").hide-on-mobile.tablet-grid-80.tablet-prefix-10.grid-60.prefix-20.suffix-20#letter-desktop
             textarea(rows="13" name="letter" maxlength="2500").hide-on-desktop.hide-on-tablet.mobile-grid-90.mobile-prefix-5.mobile-suffix-5#letter
+
+            // ** tag adding and displaying tags on this letter while being composed
+            // div.mobile-grid-90.mobile-prefix-5.grid-60.prefix-20.suffix-20.tablet-grid-80.tablet-prefix-10#tag-list
+            // div.mobile-grid-90.mobile-suffix-5.grid-20.prefix-40.tablet-grid-30.tablet-prefix-35.tablet-grid-40.tablet-prefix-30
+            // input(type="text" name="tags" placeholder="enter tags").tm-input.typeahead#search-bar
             button(type="submit").mobile-prefix-10.mobile-grid-40.grid-15.prefix-35.btn#throw into the sea!
             button(type="submit").mobile-grid-40.grid-15.btn#burn burn letter!
-        div.mobile-grid-90.mobile-prefix-5.grid-60.prefix-35.suffix-25#tag-list
-        div.mobile-grid-90.mobile-suffix-5.grid-30.prefix-35.suffix-35
-            input(type="text" name="tags" placeholder="enter tags").tm-input.typeahead#search-bar
-        button(type="submit").btn.mobile-prefix-5.mobile-grid-90.prefix-40.grid-20.suffix-40#search flask search
-        div#results
+
+        div#hidden-when-bottle
+            div.mobile-grid-90.mobile-prefix-5.grid-60.prefix-35.suffix-25#tag-list
+            div.mobile-grid-90.mobile-suffix-5.grid-30.prefix-35.suffix-35
+                input(type="text" name="tags" placeholder="enter tags").tm-input.typeahead#search-bar
+            button(type="submit").btn.mobile-prefix-5.mobile-grid-90.prefix-40.grid-20.suffix-40#search flask search
+            div#results

@@ -101,6 +101,7 @@ $(document).ready(function() {
                             console.log(results[id]);
                             $("#found").text(results[id]._source.text);
                             $("#hidden-until-bottle").slideToggle();
+                            $("#hidden-when-bottle").slideToggle();
                         });
                     }
                 } else {
