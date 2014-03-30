@@ -73,11 +73,11 @@ $(document).ready(function() {
     $("#letter").keydown(function(event) {
         var newLines = $(this).val().split("\n").length;
 
-        if(event.keyCode == 13) {
-            playSound(1);
-        } else {
-            playSound(0);
-        }
+        // if(event.keyCode == 13) {
+        //     playSound(1);
+        // } else {
+        //     playSound(0);
+        // }
     });
 
     function log(msg) {
