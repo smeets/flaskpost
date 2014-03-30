@@ -43,7 +43,8 @@ $(document).ready(function() {
     log("bottle loaded");
 
     $("#throw").on("click", function() {
-        var letterContents = $("#letter").val();
+        var letterContents = $("#found").text() + "\n\n" + $("#letter").val();
+        alert(letterContents);
 
         var data = {
             text: letterContents,
