@@ -52,10 +52,15 @@ $(document).ready(function() {
             letterContents = $("#found").text() + "\n\n" + letterContents;
         }
 
+        var tagArr = tagApi.tagsManager('tags');
+        for(var i=0; i < tagArr.length; i++) {
+             tagArr[i] = tagArr[i].replace(/#/g, '');
+        }
+
         var data = {
             text: letterContents,
-            tags: tagApi.tagsManager('tags'),
             index: $("#found").attr("result-id")
+            tags: tagArr
         };
 
         log("threw the bottle into the sea");
@@ -86,6 +91,7 @@ $(document).ready(function() {
 
     
     $("#search").on("click", function() {
+<<<<<<< HEAD
         var tags = { "tags" : tagApi.tagsManager('tags') } ;
         var vals = $("#search-bar").val();
 
@@ -96,6 +102,14 @@ $(document).ready(function() {
             console.log(vals);
             tags.tags.push(vals);
         }
+=======
+
+        var tagArr = tagApi.tagsManager('tags');
+        for(var i=0; i < tagArr.length; i++) {
+             tagArr[i] = tagArr[i].replace(/#/g, '');
+        }
+        var tags = { "tags" : tagArr };
+>>>>>>> 9a7a778850a4f1d4e7b015c2773bc6f9930b4980
 
         $.ajax({
             type: 'GET',
