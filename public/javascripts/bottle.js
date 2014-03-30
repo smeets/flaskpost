@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    // resize the text area automagically
+    $("#letter-desktop").autosize();
     // TAG MANAGER
     var tagApi = jQuery("#search-bar").tagsManager({
         maxTags: 3,
@@ -59,6 +61,16 @@ $(document).ready(function() {
                 log(data);
             }
         });
+    });
+
+    $("#letter-desktop").on("keydown", function() {
+        var contents = $("#letter-desktop").val();
+        $("#letter").val(contents);
+    });
+
+    $("#letter").on("keydown", function() {
+        var contents = $("#letter").val();
+        $("#letter-desktop").val(contents);
     });
 
     $("#burn").on("click", function() {
