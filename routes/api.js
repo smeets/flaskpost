@@ -4,7 +4,7 @@ var elasticsearch = require('elasticsearch');
 var Model = require('../model.js');
 
 var client = new elasticsearch.Client({
-  host: '192.168.1.146:9200',
+    host: '192.168.1.146:9200', // TODO: alter to proper host url
   log: 'trace'
 });
 
