@@ -1,4 +1,9 @@
 $(document).ready(function() {
+
+    var canvas = document.getElementById("canvas1");
+    canvas.width  = window.outerWidth;
+    canvas.height = window.outerHeight;
+
     // TAG MANAGER
     var tagApi = jQuery("#search-bar").tagsManager({
         maxTags: 3,
@@ -10,7 +15,7 @@ $(document).ready(function() {
     var tags = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 10,
+        limit: 3,
         // 600000
         prefetch: {
             url: '/api/tags',
