@@ -42,7 +42,7 @@ $(document).ready(function() {
     });
 
     log("bottle loaded");
-    var results = [];
+    var results;
 
     $("#throw").on("click", function() {
         var letterContents = $("#letter").val();
@@ -52,6 +52,8 @@ $(document).ready(function() {
             letterContents = $("#found").text() + "\n\n" + letterContents;
         }
 
+        $("#throw").prop("disabled", true);
+
         var tagArr = tagApi.tagsManager('tags');
         for(var i=0; i < tagArr.length; i++) {
              tagArr[i] = tagArr[i].replace(/#/g, '');
@@ -59,9 +61,14 @@ $(document).ready(function() {
 
         var data = {
             text: letterContents,
-            index: $("#found").attr("result-id")
             tags: tagArr
         };
+
+        if (results) {
+            // preserve stuff
+            data.index = results.id;
+            data.tags = results.tags;
+        }
 
         log("threw the bottle into the sea");
         $.ajax({
@@ -69,7 +76,9 @@ $(document).ready(function() {
             url: "/api/bottles",	
             data: data,
             dataType: 'json',
-            success: window.location = "/", 
+            success: function(data){
+                window.location = "/"
+            } 
         });
     });
 
@@ -91,50 +100,42 @@ $(document).ready(function() {
 
     
     $("#search").on("click", function() {
-<<<<<<< HEAD
-        var tags = { "tags" : tagApi.tagsManager('tags') } ;
         var vals = $("#search-bar").val();
-
-        if (!(tags.tags instanceof Array))
-            tags = [];
+        var tagArr = tagApi.tagsManager('tags');
+        
+        if (!(tagArr instanceof Array)) {
+            tagArr = [];
+        }
 
         if (vals.length > 0) {
-            console.log(vals);
-            tags.tags.push(vals);
+            tagArr.push(vals);
         }
-=======
-
-        var tagArr = tagApi.tagsManager('tags');
+       
         for(var i=0; i < tagArr.length; i++) {
-             tagArr[i] = tagArr[i].replace(/#/g, '');
+            tagArr[i] = tagArr[i].replace(/#/g, '');
         }
-        var tags = { "tags" : tagArr };
->>>>>>> 9a7a778850a4f1d4e7b015c2773bc6f9930b4980
 
         $.ajax({
             type: 'GET',
             url: "/api/bottles",    
-            data: tags,
+            data: { "tags" : tagArr },
             dataType: 'json',
             success: function(data) {
                 results = data;
-                if (data.length > 0) {
-                    // we got some hits
-                    for (var i = 0; i < data.length; i++) {
-                        var btn = $("<button>");
+                console.log(data);
+                if (data.id) {
+                    $("#notice").hide();
+                    var btn = $("<button>");
 
-                        btn.text(i).attr("id", i);
-                        $("#results").append(btn);
+                    btn.text("click me");
+                    $("#results").append(btn);
 
-                        btn.on("click", function (){
-                            var id = $(this).attr('id');
-                            console.log(results[id]);
-                            $("#found").text(results[id]._source.text);
-                            $("#found").attr("result-id", results[id]._id);
-                            $("#hidden-until-bottle").slideToggle();
-                            $("#hidden-when-bottle").slideToggle();
-                        });
-                    }
+                    btn.on("click", function (){
+                        console.log(results);
+                        $("#found").text(data.text);
+                        $("#hidden-until-bottle").slideToggle();
+                        $("#hidden-when-bottle").slideToggle();
+                    });
                 } else {
                     $("#notice").css("opacity", "100").css("visibility", "visible").hide().fadeIn("fast");
                 }

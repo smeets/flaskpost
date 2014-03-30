@@ -21,13 +21,14 @@ exports.index = function (req, res){
 };
 
 exports.tags = function (req, res) {
-    console.log("sending tags...");
     console.log(globalTagList);
     res.json(globalTagList);
 }
 
 exports.update = function(req, res){
     var model = new Model(req.body.text, req.body.tags);
+
+    res.json({resp : "wawaw"});
     
     if (req.body.tags) {
         for (var i = 0; i < req.body.tags.length; i++) {
@@ -48,9 +49,7 @@ exports.update = function(req, res){
             body: model,
             omit_norms: true
         }, function (error, response) {
-            client.indices.refresh( function (error, response, status){
-                res.send(200);
-            });
+            // log error
         });
     } else {
         client.index({
@@ -59,8 +58,9 @@ exports.update = function(req, res){
             body: model,
             omit_norms: true
         }, function (error, response) {
-            client.indices.refresh( function (error, response, status){
-                res.send(200);
+            // log error
+            client.indices.refresh( function (err, resp, status){
+                // log error
             });
         });
     }
@@ -68,36 +68,47 @@ exports.update = function(req, res){
 
 exports.search = function(req, res){
     // GET request (query)
-    if (!req.query.tags){
-        res.send("no tags entered, use ?tags=tag1&tags=tag2...&tags=tagN");
+    var tagList = req.query.tags;
+    if (!tagList){
+        tagList = [];
+        tagList.push("_all");
     } else {
-        var tagList = req.query.tags;
         if (!(tagList instanceof Array)) {
             tagList = [];
             tagList.push(req.query.tags);
         }
+    }
 
-        client.search({
-            index: es_index,
-            type: es_type,
-            body: {
-                query: {
-                    filtered: {
-                        query: {
-                            terms: { tags: tagList }
-                        },
-                        filter: {
-                            term: { published: true }
-                        }
+    client.search({
+        index: es_index,
+        type: es_type,
+        size: 1,
+        body: {
+            query: {
+                filtered: {
+                    query: {
+                        terms: { tags: tagList }
+                    },
+                    filter: {
+                        term: { published: true }
                     }
                 }
             }
-        }, function (error, response) {
-            if (error) {
-                res.send("we got error");
+        }
+    }, function (error, response) {
+        if (error) {
+            res.json(500, {resp : "no beef"});
+        } else {
+            if (response.hits.total > 0) {
+                var safeObject = {
+                    id: response.hits.hits[0]._id,
+                    text: response.hits.hits[0]._source.text,
+                    tags: response.hits.hits[0]._source.tags
+                };
+                res.json(safeObject);
             } else {
-                res.json(response.hits.hits);
-            }    
-        });
-    }
+                res.send({resp : "no beef"});
+            }
+        }    
+    });
 }
