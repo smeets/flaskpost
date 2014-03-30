@@ -107,6 +107,10 @@ a {
 #throw {
 }
 
+#hidden-until-bottle {
+    display: none;
+}
+
 .rounded-corners (@radius: 5px) {
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
@@ -122,18 +126,18 @@ a {
     padding-top: 10px;
     background: @letter-color;
     border: 1px solid @btn-color;
+    overflow:hidden;
 }
 
 .addendum {
     color: #707070;
 }
-.addendum2 {
+.original {
     color: #A0A0A0;
 }
 // NOTE THE ID
 #letter-desktop {
     #letter();
-    overflow:hidden;
     font-size: 16px;
     padding-top: 25px;
     padding-left: 50px;
