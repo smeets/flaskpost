@@ -6,8 +6,10 @@ $(document).ready(function() {
         var bottleMsg = $.totalStorage("bottleMsg");
         if (bottleMsg != null) {
             $("#hidden-until-bottle").toggle();
-            $("#hidden-when-bottle").toggle();
+            // $("#hidden-when-bottle").toggle();
             $("#found").text(bottleMsg);
+        } else {
+            $("#hidden-when-bottle").toggle();
         }
     } else {
         //gg
@@ -209,6 +211,7 @@ $(document).ready(function() {
                     $.totalStorage("bottleTags", data.tags);
 
                     $("#found").text(data.text);
+                    $("#found-mobile").text(data.text);
                     $("#hidden-until-bottle").slideToggle();
                     $("#hidden-when-bottle").slideToggle();
                 } else {
