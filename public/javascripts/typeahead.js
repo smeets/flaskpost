@@ -909,7 +909,7 @@
             27: "esc",
             37: "left",
             39: "right",
-            13: "enter",
+            //13: "enter",
             38: "up",
             40: "down"
         };
@@ -946,8 +946,8 @@
         };
         _.mixin(Input.prototype, EventEmitter, {
             _onBlur: function onBlur() {
-                this.resetInputValue();
-                this.trigger("blurred");
+                //this.resetInputValue();
+                //this.trigger("blurred");
             },
             _onFocus: function onFocus() {
                 this.trigger("focused");

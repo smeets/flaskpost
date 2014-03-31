@@ -26,7 +26,6 @@ $(document).ready(function() {
             tagsContainer: $("#tag-list"),
             delimiters: [32, 13, 44] // space, enter, comma
         });
-
         // The tokenizer/shingle/fuzzinator engine that give suggestions
         var tags = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -54,9 +53,9 @@ $(document).ready(function() {
           displayKey: 'name',
           source: tags.ttAdapter()
         }).on('typeahead:selected', function (e, d) {
-            console.log(d);
+            console.log("pushing " + d.name);
             tagApi.tagsManager("pushTag", d.name);
-            $('.typeahead').typeahead('val', "");
+            //$('.typeahead').typeahead('val', "");
         });
     };
     
@@ -186,19 +185,22 @@ $(document).ready(function() {
     
     $("#search").on("click", function() {
         var vals = $("#search-bar").val();
-        var tagArr = tagApi.tagsManager('tags');
-        
-        if (!(tagArr instanceof Array)) {
-            tagArr = [];
-        }
+        var listRef = tagApi.tagsManager('tags');
+        var tagArr = listRef.slice(0);
 
         if (vals.length > 0) {
             tagArr.push(vals);
         }
+
+        log("wawawaw");
+        log(tagApi.tagsManager('tags'));
        
         for(var i=0; i < tagArr.length; i++) {
             tagArr[i] = tagArr[i].replace(/#/, '');
         }
+
+        log("adadadadad");
+        log(tagApi.tagsManager('tags'));
 
         $.ajax({
             type: 'GET',
