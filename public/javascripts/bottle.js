@@ -74,12 +74,9 @@ $(document).ready(function() {
 
         $("#throw").prop("disabled", true);
         var vals = $("#search-bar").val();
-        var tagArr = tagApi.tagsManager('tags');
-        
-        if (!(tagArr instanceof Array)) {
-            tagArr = [];
-        }
-
+        var listRef = tagApi.tagsManager('tags');
+        var tagArr = listRef.slice(0);
+    
         if (vals.length > 0 && tagArr.length === 0) {
             tagArr.push(vals);
         }
