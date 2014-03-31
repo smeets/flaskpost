@@ -7,7 +7,7 @@ $(document).ready(function() {
     if (window.location.pathname === "/read") {
         var bottleMsg = $.totalStorage("bottleMsg");
         if (bottleMsg) {
-            $("#hidden-until-bottle").toggle(function(){
+            $("#hidden-until-bottle").toggle(0, function(){
                 $(window).resize();
             });
         // if bottle in localStorage, load that instead of search bar

@@ -24,6 +24,7 @@ body {
   background: @bg-color;
 }
 
+
 #found-tags {
     border: 1px solid @btn-color;
     background: @letter-color;
@@ -123,7 +124,19 @@ a {
     font-size: 50px;
 }
 
-#burn {
+@media (min-width: 768px) {
+    .btn {
+        margin-bottom: 100px;
+    }
+}
+@media (max-width: 768px) {
+    .btn {
+        margin-bottom: 40px;
+    }
+}
+
+#gather {
+    margin-bottom: 0;
 }
 
 #throw {
