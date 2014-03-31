@@ -74,11 +74,12 @@ var canvas = $("#canvas1");
 freqs = [],
 amps = [];
 for (var i = 0; i <= values.amount; i++) {
-    freqs[i] = Math.random() * 5;
+    freqs[i] = Math.random() * 1.5 + 0.66;
     amps[i] = Math.random() * 7 + 3; 
 }
 
 $(window).resize(resizeAndRedrawCanvas);
+$resizeFunction = resizeAndRedrawCanvas;
 
 function resizeAndRedrawCanvas()
 {

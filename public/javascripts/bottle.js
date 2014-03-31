@@ -4,8 +4,10 @@ $(document).ready(function() {
     
     if (window.location.pathname === "/read") {
         var bottleMsg = $.totalStorage("bottleMsg");
-        if (bottleMsg != null) {
-            $("#hidden-until-bottle").toggle();
+        if (bottleMsg) {
+            $("#hidden-until-bottle").toggle(function(){
+                console.log("done");
+            });
             // $("#hidden-when-bottle").toggle();
             setFoundText(bottleMsg);
         } else {
@@ -210,7 +212,9 @@ $(document).ready(function() {
                     $.totalStorage("bottleTags", data.tags);
 
                     setFoundText(data.text);
-                    $("#hidden-until-bottle").slideToggle();
+                    $("#hidden-until-bottle").slideToggle(function(){
+                        $resizeFunction();
+                    });
                     $("#hidden-when-bottle").slideToggle();
                 } else {
                     $.growl({ title: "error", message: "no bottles sighted! try a different search" });
