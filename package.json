@@ -9,6 +9,7 @@
     "express": "3.4.6",
     "jade": "*",
     "elasticsearch": "2.1.0",
-    "less-middleware": "*"
+    "less-middleware": "*",
+    "redis": "*"
   }
 }

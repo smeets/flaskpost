@@ -3,26 +3,37 @@
 var elasticsearch = require('elasticsearch');
 var Model = require('../model.js');
 
-var client = new elasticsearch.Client({
+var esClient = new elasticsearch.Client({
     host: '192.168.1.146:9200', // TODO: alter to proper host url
     log: 'trace'
 });
 
-var globalTagListChecker = {};
-var globalTagList = [];
+var redis = require("redis"),
+    redisClient = redis.createClient(6379, "192.168.1.146");
 
 var es_index = "flaskpost",
     es_type = "bottle";
 
 exports.index = function (req, res){
-    client.info(function (err, response, status) {
+    esClient.info(function (err, response, status) {
         res.send(response);
     });
 };
 
+// Cache keys, set to false when new key added & key was deleted
+var hasChanged = true;
+var cachedTagList = [];
+
 exports.tags = function (req, res) {
-    console.log(globalTagList);
-    res.json(globalTagList);
+    if (hasChanged) {
+        redisClient.keys("*", function (err, reply) {
+            cachedTagList = reply;
+            hasChanged = false;
+            res.json(reply);
+        });
+    } else {
+        res.json(cachedTagList);
+    }
 }
 
 exports.update = function(req, res){
@@ -31,50 +42,71 @@ exports.update = function(req, res){
     res.json({resp : "wawaw"});
     
     if (req.body.tags) {
-        for (var i = 0; i < req.body.tags.length; i++) {
-            var tag = req.body.tags[i];
-            if (!globalTagListChecker.hasOwnProperty(tag)) {
-                globalTagList.push(tag);
-                globalTagListChecker[tag] = globalTagList.length;
-                console.log("adding tag: " + tag);
-            }
+        for (var i = 0, l = req.body.tags.length; i < l; i++) {
+            redisClient.incr(req.body.tags[i], function (err, rep){
+                if (rep === 1) {
+                    hasChanged = true;
+                }
+            });
         }
     }
 
     if (req.body.index) {
-        client.index({
+        esClient.index({
             index: es_index,
             type: es_type,
             id: req.body.index,
             body: model,
             omit_norms: true
-        }, function (error, response) {
-            // log error
-        });
+        }, function (error, response) {});
     } else {
-        client.index({
+        esClient.index({
             index: es_index,
             type: es_type,
             body: model,
             omit_norms: true
         }, function (error, response) {
-            // log error
-            client.indices.refresh( function (err, resp, status){
-                // log error
+            if (error) console.trace(error);
+            esClient.indices.refresh( function (err, resp, status){
+                if (error) console.trace(error);
             });
         });
     }
 }
 
+function decrementTag(tag) {
+    redisClient.decr(tag, function (err, reply) {
+        if (reply === 0) {
+            redisClient.del(tag, function (error, response) {
+                hasChanged = true;
+            });
+        }
+    });
+}
+
 exports.delete = function(req, res){
     var index = req.body.index;
     if (index) {
-        client.delete({
+        esClient.get({
             index: es_index,
             type: es_type,
             id: index
         }, function (error, response) {
-            res.json({status: "200", response: "all goody here"});
+            if (error) {
+                console.trace(error);
+            } else {
+                esClient.delete({
+                    index: es_index,
+                    type: es_type,
+                    id: index
+                }, function (err, resp) {
+                    res.json({status: "200", response: "all goody here"});
+                });
+                var tags = response._source.tags;
+                for (var i = 0, l = tags.length; i < l; i++) {
+                    decrementTag(tags[i]);
+                }
+            }
         });
     } else {
         res.json({status: "400", response: "no index provided"});
@@ -94,7 +126,7 @@ exports.search = function(req, res){
         }
     }
 
-    client.search({
+    esClient.search({
         index: es_index,
         type: es_type,
         size: 1,
@@ -125,7 +157,7 @@ exports.search = function(req, res){
                 var model = new Model(safeObject.text, safeObject.tags);
                 model.published = false;
 
-                client.index({
+                esClient.index({
                     index: es_index,
                     type: es_type,
                     id: safeObject.id,
