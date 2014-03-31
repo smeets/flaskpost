@@ -78,9 +78,6 @@ for (var i = 0; i <= values.amount; i++) {
     amps[i] = Math.random() * 7 + 3; 
 }
 
-$(window).resize(resizeAndRedrawCanvas);
-$resizeFunction = resizeAndRedrawCanvas;
-
 function resizeAndRedrawCanvas()
 {
     var desiredWidth = $(window).width();
@@ -98,10 +95,12 @@ function resizeAndRedrawCanvas()
     view.draw();
 };
 
-$(document).ready(function() {
-    setTimeout(resizeAndRedrawCanvas, 1000);
-});
+$(window).resize(resizeAndRedrawCanvas);
+$resizeFunction = resizeAndRedrawCanvas;
 
+
+
+resizeAndRedrawCanvas();
 
 function onFrame(event) {
     updateWave(path, event.time);

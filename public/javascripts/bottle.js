@@ -1,12 +1,14 @@
 $(document).ready(function() {
     // resize the text area automagically
-    $("#letter-desktop").autosize();
+    $("#letter-desktop").autosize({callback: function(){
+        $(window).resize();
+    }});
     
     if (window.location.pathname === "/read") {
         var bottleMsg = $.totalStorage("bottleMsg");
         if (bottleMsg) {
             $("#hidden-until-bottle").toggle(function(){
-                console.log("done");
+                $(window).resize();
             });
             // $("#hidden-when-bottle").toggle();
             setFoundText(bottleMsg);
@@ -213,7 +215,7 @@ $(document).ready(function() {
 
                     setFoundText(data.text);
                     $("#hidden-until-bottle").slideToggle(function(){
-                        $resizeFunction();
+                        $(window).resize();
                     });
                     $("#hidden-when-bottle").slideToggle();
                 } else {
