@@ -6,7 +6,7 @@ $(document).ready(function() {
     var tagApi = jQuery("#search-bar").tagsManager({
         maxTags: 3,
         tagsContainer: $("#tag-list"),
-        delimiters: [32, 9, 13, 44] // space, tab, enter, comma
+        delimiters: [32, 13, 44] // space, enter, comma
     });
 
     // The tokenizer/shingle/fuzzinator engine that give suggestions
@@ -53,12 +53,20 @@ $(document).ready(function() {
         }
 
         $("#throw").prop("disabled", true);
-
+        var vals = $("#search-bar").val();
         var tagArr = tagApi.tagsManager('tags');
-        for(var i=0; i < tagArr.length; i++) {
-             tagArr[i] = tagArr[i].replace(/#/g, '');
+        
+        if (!(tagArr instanceof Array)) {
+            tagArr = [];
         }
 
+        if (vals.length > 0) {
+            tagArr.push(vals);
+        }
+       
+        for(var i=0; i < tagArr.length; i++) {
+            tagArr[i] = tagArr[i].replace(/#/, '');
+        }
         var data = {
             text: letterContents,
             tags: tagArr

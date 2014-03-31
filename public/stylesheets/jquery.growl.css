@@ -22,7 +22,7 @@
     right: 10px; }
 
 .growl {
-  opacity: 0.8;
+  opacity: .99;
   position: relative;
   border-radius: 4px;
   -webkit-transition: all 0.4s ease-in-out;
