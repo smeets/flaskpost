@@ -191,7 +191,7 @@ $(document).ready(function() {
             tagArr = [];
         }
 
-        if (vals.length > 0 && tagArr.length === 0) {
+        if (vals.length > 0) {
             tagArr.push(vals);
         }
        
