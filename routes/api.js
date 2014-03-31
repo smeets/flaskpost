@@ -66,6 +66,21 @@ exports.update = function(req, res){
     }
 }
 
+exports.delete = function(req, res){
+    var index = req.body.index;
+    if (index) {
+        client.delete({
+            index: es_index,
+            type: es_type,
+            id: index
+        }, function (error, response) {
+            res.json({status: "200", response: "all goody here"});
+        });
+    } else {
+        res.json({status: "400", response: "no index provided"});
+    }
+}
+
 exports.search = function(req, res){
     // GET request (query)
     var tagList = req.query.tags;

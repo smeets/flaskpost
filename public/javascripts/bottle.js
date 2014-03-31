@@ -94,15 +94,46 @@ $(document).ready(function() {
         $("#letter-desktop").val(contents);
     });
 
+    function makeDiv(posx, posy){
+        $newdiv = $('<img>').attr("src", "http://i867.photobucket.com/albums/ab239/123peeaboo/flame.gif~original");
+
+        var posx = ($(document).width() / 2 + ((Math.random() - 0.5) * ($(document).width() / 2 ))).toFixed();
+        var posy = ($(document).height() / 2 + ((Math.random() - 0.5) * ($(document).height() / 2 ))).toFixed();
+
+        $newdiv.css({
+            'position':'absolute',
+            'left': posx + 'px',
+            'top': posy + 'px',
+            'display': 'none'
+        }).appendTo( 'body' ).fadeIn(100);
+    };
+
     $("#burn").on("click", function() {
         log("burned the contents of the letter");
-        //$("#burn").toggle("slide", {direction: "right"});
 
         var flames = [];
-        setTimeout(function(){
-            var flame = $("<img>").attr("src", "http://i867.photobucket.com/albums/ab239/123peeaboo/flame.gif~original");
-            flame.css("position", "absolute");
-        }, 250);
+        function makeFlames(){
+            makeDiv();
+            flames.push($newdiv);
+            if (flames.length < 13) {
+                setTimeout(makeFlames, 50);
+            } else {
+                if (results) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "/api/bottles",    
+                        data: {index: results.id},
+                        dataType: 'json',
+                        success: function(data) {
+                            window.location = "/";
+                        }
+                    });
+                } else {
+                    window.location = "/";
+                }
+            }
+        }
+        setTimeout(makeFlames, 50);
 
     });
 
