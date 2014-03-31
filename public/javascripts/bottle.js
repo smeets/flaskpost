@@ -63,9 +63,6 @@ $(document).ready(function() {
             letterContents = $("#found").text() + "\n\n" + letterContents;
         }
 
-        // delete from local storage
-        $.totalStorage.deleteItem("bottleMsg");
-        $.totalStorage.deleteItem("bottleId");
 
         $("#throw").prop("disabled", true);
         var vals = $("#search-bar").val();
@@ -87,11 +84,15 @@ $(document).ready(function() {
             tags: tagArr
         };
 
-        if (results) {
+        var bottleId = $.totalStorage("bottleId");
+        if (bottleMsg != null) {
             // preserve stuff
-            data.index = results.id;
-            data.tags = results.tags;
+            data.index = bottleId;
+            data.tags = $.totalStorage("bottleTags");
         }
+
+        // note: don't cleanse until you've preserved stuff in e.g. data.index
+        cleanseLocalStorage();
 
         log("threw the bottle into the sea");
         $.growl({title: "", message: "threw the bottle into the sea!" });
@@ -137,9 +138,15 @@ $(document).ready(function() {
     $("#burn").on("click", function() {
         log("burned the contents of the letter");
         $.growl({title: "Letter BURNT", message: burnMsgs[Math.floor(Math.random() * burnMsgs.length)]});
-        // delete from local storage
-        $.totalStorage.deleteItem("bottleMsg");
-        $.totalStorage.deleteItem("bottleId");
+
+        // if /read (and we're burning the letter)
+        if (window.location.pathname === "/read") {
+            var bottleMsg = $.totalStorage("bottleMsg");
+            if (bottleMsg != null) {
+                // do some cleaning :3
+                cleanseLocalStorage();
+            }
+        }
 
         var flames = [];
         function makeFlames(){
@@ -194,11 +201,10 @@ $(document).ready(function() {
                 console.log(data);
                 if (data.id) {
                     $("#notice").hide();
-                    // CHECK TO SEE IF THIS WORKS; WELL WHEN SMEETS HAS WOKEN
-                    // UP ANYWAY
                     $.totalStorage("bottleMsg", data.text);
                     $.totalStorage("bottleId", data.id);
-                    ////////////////////////////////
+                    $.totalStorage("bottleTags", data.tags);
+
                     $("#found").text(data.text);
                     $("#hidden-until-bottle").slideToggle();
                     $("#hidden-when-bottle").slideToggle();
@@ -208,6 +214,13 @@ $(document).ready(function() {
             }
         });
     });
+
+    function cleanseLocalStorage() {
+        // delete from local storage
+        $.totalStorage.deleteItem("bottleMsg");
+        $.totalStorage.deleteItem("bottleId");
+        $.totalStorage.deleteItem("bottleTags");
+    }
 
     function log(msg) {
         console.log("[bottle] " + msg);
