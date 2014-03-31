@@ -102,7 +102,7 @@ $(document).ready(function() {
             data: data,
             dataType: 'json',
             success: function(data){
-                window.location = "/"
+                window.location.replace(window.location.pathname);
             } 
         });
     });
@@ -162,11 +162,11 @@ $(document).ready(function() {
                         data: {index: results.id},
                         dataType: 'json',
                         success: function(data) {
-                            window.location = "/";
+                            window.location.replace(window.location.pathname);
                         }
                     });
                 } else {
-                    window.location = "/";
+                    window.location.replace(window.location.pathname);
                 }
             }
         }
