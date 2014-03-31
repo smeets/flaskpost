@@ -8,6 +8,8 @@ $(document).ready(function() {
             $("#hidden-until-bottle").toggle();
             // $("#hidden-when-bottle").toggle();
             $("#found").text(bottleMsg);
+            $("#found-mobile").text(bottleMsg);
+            $("#found-tags").text("tagged as: " + $.totalStorage("bottleTags"));
         } else {
             $("#hidden-when-bottle").toggle();
         }
@@ -189,7 +191,7 @@ $(document).ready(function() {
             tagArr = [];
         }
 
-        if (vals.length > 0) {
+        if (vals.length > 0 && tagArr.length === 0) {
             tagArr.push(vals);
         }
        
@@ -212,6 +214,7 @@ $(document).ready(function() {
 
                     $("#found").text(data.text);
                     $("#found-mobile").text(data.text);
+                    $("#found-tags").text("tagged as: " + $.totalStorage("bottleTags"));
                     $("#hidden-until-bottle").slideToggle();
                     $("#hidden-when-bottle").slideToggle();
                 } else {
