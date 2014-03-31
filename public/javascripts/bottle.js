@@ -79,7 +79,7 @@ $(document).ready(function() {
         }
 
         log("threw the bottle into the sea");
-        $.growl.notice({ message: "The kitten is cute!" });
+        $.growl({title: "", message: "threw the bottle into the sea!" });
         $.ajax({
             type: 'PUT',
             url: "/api/bottles",	
@@ -118,6 +118,7 @@ $(document).ready(function() {
 
     $("#burn").on("click", function() {
         log("burned the contents of the letter");
+        $.growl({title: "Letter BURNT", message: "never to be seen again q.q"});
 
         var flames = [];
         function makeFlames(){
