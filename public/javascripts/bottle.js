@@ -1,6 +1,17 @@
 $(document).ready(function() {
     // resize the text area automagically
     $("#letter-desktop").autosize();
+    
+    if (window.location.pathname === "/read") {
+        var bottleMsg = $.totalStorage("bottleMsg");
+        if (bottleMsg != null) {
+            $("#hidden-until-bottle").toggle();
+            $("#hidden-when-bottle").toggle();
+            $("#found").text(bottleMsg);
+        }
+    } else {
+        //gg
+    }
 
     // TAG MANAGER
     var tagApi = jQuery("#search-bar").tagsManager({
