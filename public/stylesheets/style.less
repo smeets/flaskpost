@@ -39,13 +39,15 @@ a {
     padding: 0px;
 }
 
-#tag-height {
-    height: 20px;
-}
-
 #tag-list {
     padding-top: 2px;
     height: 30px;
+}
+
+@media (min-width: 768px) {
+    #tag-list {
+        height: 35px;
+    }
 }
 
 .box-shadow (@x: 0; @y: 0; @blur: 1px; @color: #000) {
@@ -85,8 +87,6 @@ a {
     &:hover {
         background-color: (@btn-color + #444);
     }
-
-    // active feels weird on mobile devices
     &:active {
         background-color: (@btn-color + #111);
     }
@@ -185,7 +185,7 @@ a {
   font-size: 24px;
   line-height: 30px;
   border: 2px solid #ccc;
-  // font: 16px "TravelingTypewriter", Helvetica, Arial, sans-serif;
+  font: 16px "TravelingTypewriter", Helvetica, Arial, sans-serif;
   -webkit-border-radius: 8px;
      -moz-border-radius: 8px;
           border-radius: 8px;
