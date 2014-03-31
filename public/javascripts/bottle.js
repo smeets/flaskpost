@@ -10,7 +10,7 @@ $(document).ready(function() {
             $("#hidden-until-bottle").toggle(function(){
                 $(window).resize();
             });
-            // $("#hidden-when-bottle").toggle();
+        // if bottle in localStorage, load that instead of search bar
             setFoundText(bottleMsg);
         } else {
             $("#hidden-when-bottle").toggle();
@@ -227,7 +227,8 @@ $(document).ready(function() {
     function setFoundText(text) {
         $("#found").text(text);
         $("#found-mobile").text(text)
-        $("#found-tags").text("tagged as: " + $.totalStorage("bottleTags"));
+        var tags = "" + $.totalStorage("bottleTags");
+        $("#found-tags").text("tags: " + tags.replace(/,/g , ", "));
     }
 
     function cleanseLocalStorage() {
