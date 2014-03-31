@@ -1,7 +1,11 @@
 // text = letter, tags = array of string tags
 var Model = function(text, tags){
     this.text = text;
-    this.tags = tags;
+    if (tags) {
+        this.tags = tags;
+    } else {
+        this.tags = [];
+    }
     this.published = true;
 }
 

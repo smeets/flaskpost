@@ -9,7 +9,6 @@ values.invMass = 1 / values.mass;
 
 var path, springs;
 var size = view.size * [1.2, 1];
-var sizeY;
 
 var Spring = function(a, b, strength, restLength) {
     this.a = a;
@@ -92,9 +91,9 @@ function resizeAndRedrawCanvas()
     view.draw();
 };
 
-resizeAndRedrawCanvas();
-
-
+$(document).ready(function() {
+    setTimeout(resizeAndRedrawCanvas, 1000);
+});
 
 
 function onFrame(event) {

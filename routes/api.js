@@ -117,24 +117,51 @@ exports.delete = function(req, res){
     }
 }
 
+function markDocumentTaken(safeObject){
+    var model = new Model(safeObject.text, safeObject.tags);
+    model.published = false;
+
+    esClient.index({
+        index: es_index,
+        type: es_type,
+        id: safeObject.id,
+        body: model,
+        omit_norms: true
+    }, function (error, response) {});
+}
+
+function searchCallback(error, response, res) {
+    if (error) {
+        res.json(500, {resp : "no beef"});
+    } else {
+        if (response.hits.total > 0) {
+            var safeObject = {
+                id: response.hits.hits[0]._id,
+                text: response.hits.hits[0]._source.text,
+                tags: response.hits.hits[0]._source.tags
+            };
+            
+            // Put it back, just editing the published value
+            markDocumentTaken(safeObject);
+            
+            res.json(safeObject);
+        } else {
+            res.send({resp : "no beef"});
+        }
+    }    
+}
+
 exports.search = function(req, res){
     // GET request (query)
     var tagList = req.query.tags;
-    if (!tagList){
-        tagList = [];
-        tagList.push("_all");
-    } else {
+    var query = {};
+
+    if (tagList) {
         if (!(tagList instanceof Array)) {
             tagList = [];
             tagList.push(req.query.tags);
         }
-    }
-
-    esClient.search({
-        index: es_index,
-        type: es_type,
-        size: 1,
-        body: {
+        query = {
             query: {
                 filtered: {
                     query: {
@@ -145,34 +172,21 @@ exports.search = function(req, res){
                     }
                 }
             }
-        }
-    }, function (error, response) {
-        if (error) {
-            res.json(500, {resp : "no beef"});
-        } else {
-            if (response.hits.total > 0) {
-                var safeObject = {
-                    id: response.hits.hits[0]._id,
-                    text: response.hits.hits[0]._source.text,
-                    tags: response.hits.hits[0]._source.tags
-                };
-                
-                // Put it back, just editing the published value
-                var model = new Model(safeObject.text, safeObject.tags);
-                model.published = false;
-
-                esClient.index({
-                    index: es_index,
-                    type: es_type,
-                    id: safeObject.id,
-                    body: model,
-                    omit_norms: true
-                }, function (error, response) {});
-                
-                res.json(safeObject);
-            } else {
-                res.send({resp : "no beef"});
+        };
+    } else {
+        query = {
+            filter: {
+                match_all: { }
             }
-        }    
+        };
+    }
+
+    esClient.search({
+        index: es_index,
+        type: es_type,
+        size: 1,
+        body: query
+    }, function (error, response) {
+        searchCallback(error, response, res);
     });
 }
