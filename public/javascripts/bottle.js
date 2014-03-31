@@ -82,7 +82,7 @@ $(document).ready(function() {
         }
        
         for(var i=0; i < tagArr.length; i++) {
-            tagArr[i] = tagArr[i].replace(/#/, '');
+            tagArr[i] = tagArr[i].replace(/[\W_]/g, '');
         }
 
         var data = {
@@ -91,7 +91,7 @@ $(document).ready(function() {
         };
 
         var bottleId = $.totalStorage("bottleId");
-        if (bottleId) {
+        if (bottleId && window.location.pathname === "/read") {
             // preserve stuff
             data.index = bottleId;
             data.tags = $.totalStorage("bottleTags");
@@ -193,7 +193,7 @@ $(document).ready(function() {
         log(tagApi.tagsManager('tags'));
        
         for(var i=0; i < tagArr.length; i++) {
-            tagArr[i] = tagArr[i].replace(/#/, '');
+            tagArr[i] = tagArr[i].replace(/[\W_]/g, '');
         }
 
         log("adadadadad");
