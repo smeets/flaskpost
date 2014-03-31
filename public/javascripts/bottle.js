@@ -79,13 +79,14 @@ $(document).ready(function() {
         for(var i=0; i < tagArr.length; i++) {
             tagArr[i] = tagArr[i].replace(/#/, '');
         }
+
         var data = {
             text: letterContents,
             tags: tagArr
         };
 
         var bottleId = $.totalStorage("bottleId");
-        if (bottleMsg != null) {
+        if (bottleId) {
             // preserve stuff
             data.index = bottleId;
             data.tags = $.totalStorage("bottleTags");
@@ -198,7 +199,6 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 results = data;
-                console.log(data);
                 if (data.id) {
                     $("#notice").hide();
                     $.totalStorage("bottleMsg", data.text);
