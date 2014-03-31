@@ -209,6 +209,7 @@ $(document).ready(function() {
                     $.totalStorage("bottleTags", data.tags);
 
                     $("#found").text(data.text);
+                    $("#found-mobile").text(data.text);
                     $("#hidden-until-bottle").slideToggle();
                     $("#hidden-when-bottle").slideToggle();
                 } else {
