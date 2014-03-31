@@ -71,6 +71,7 @@ $(document).ready(function() {
         }
 
         log("threw the bottle into the sea");
+        $.growl.notice({ message: "The kitten is cute!" });
         $.ajax({
             type: 'PUT',
             url: "/api/bottles",	
@@ -95,7 +96,14 @@ $(document).ready(function() {
 
     $("#burn").on("click", function() {
         log("burned the contents of the letter");
-        $("#burn").toggle("slide", {direction: "right"});
+        //$("#burn").toggle("slide", {direction: "right"});
+
+        var flames = [];
+        setTimeout(function(){
+            var flame = $("<img>").attr("src", "http://i867.photobucket.com/albums/ab239/123peeaboo/flame.gif~original");
+            flame.css("position", "absolute");
+        }, 250);
+
     });
 
     
@@ -137,7 +145,7 @@ $(document).ready(function() {
                         $("#hidden-when-bottle").slideToggle();
                     });
                 } else {
-                    $("#notice").css("opacity", "100").css("visibility", "visible").hide().fadeIn("fast");
+                    $.growl({ title: "error", message: "no bottles sighted! try a different search" });
                 }
             }
         });

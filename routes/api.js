@@ -105,6 +105,19 @@ exports.search = function(req, res){
                     text: response.hits.hits[0]._source.text,
                     tags: response.hits.hits[0]._source.tags
                 };
+                
+                // Put it back, just editing the published value
+                var model = new Model(safeObject.text, safeObject.tags);
+                model.published = false;
+
+                client.index({
+                    index: es_index,
+                    type: es_type,
+                    id: safeObject.id,
+                    body: model,
+                    omit_norms: true
+                }, function (error, response) {});
+                
                 res.json(safeObject);
             } else {
                 res.send({resp : "no beef"});
