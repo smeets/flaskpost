@@ -42,12 +42,16 @@ exports.update = function(req, res){
     res.json({resp : "wawaw"});
     
     if (req.body.tags) {
-        for (var i = 0, l = req.body.tags.length; i < l; i++) {
-            redisClient.incr(req.body.tags[i], function (err, rep){
-                if (rep === 1) {
-                    hasChanged = true;
-                }
-            });
+        if (! req.body.index) {
+            // Only add tags if message was created (no provided index)
+            for (var i = 0, l = req.body.tags.length; i < l; i++) {
+                redisClient.incr(req.body.tags[i], function (err, rep){
+                    console.log(rep);
+                    if (rep === 1) {
+                        hasChanged = true;
+                    }
+                });
+            }
         }
     }
 

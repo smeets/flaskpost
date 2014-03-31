@@ -13,44 +13,47 @@ $(document).ready(function() {
         //gg
     }
 
-    // TAG MANAGER
-    var tagApi = jQuery("#search-bar").tagsManager({
-        maxTags: 3,
-        tagsContainer: $("#tag-list"),
-        delimiters: [32, 13, 44] // space, enter, comma
-    });
+    // TAG MANAGER, only load if we have a search bar
+    if($("#search-bar").length !== 0) {
+        var tagApi = $("#search-bar").tagsManager({
+            maxTags: 3,
+            tagsContainer: $("#tag-list"),
+            delimiters: [32, 13, 44] // space, enter, comma
+        });
 
-    // The tokenizer/shingle/fuzzinator engine that give suggestions
-    var tags = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 3,
-        // 600000
-        prefetch: {
-            url: '/api/tags',
-            ttl: 1,
-            filter: function(list) {
-                return $.map(list, function(tag) { return { name: tag }; });
+        // The tokenizer/shingle/fuzzinator engine that give suggestions
+        var tags = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            limit: 3,
+            // 600000
+            prefetch: {
+                url: '/api/tags',
+                ttl: 1,
+                filter: function(list) {
+                    return $.map(list, function(tag) { return { name: tag }; });
+                }
             }
-        }
-    });
+        });
 
-    // prefetch
-    tags.initialize();
-  
-    // Initialize the typeahead plugin
-    typeApi = $('#search-bar').typeahead({
-        minLength: 1,
-        highlight: true,
-    }, {
-      name: 'tag',
-      displayKey: 'name',
-      source: tags.ttAdapter()
-    }).on('typeahead:selected', function (e, d) {
-        console.log(d);
-        tagApi.tagsManager("pushTag", d.name);
-        $('.typeahead').typeahead('val', "");
-    });
+        // prefetch
+        tags.initialize();
+      
+        // Initialize the typeahead plugin
+        typeApi = $('#search-bar').typeahead({
+            minLength: 1,
+            highlight: true,
+        }, {
+          name: 'tag',
+          displayKey: 'name',
+          source: tags.ttAdapter()
+        }).on('typeahead:selected', function (e, d) {
+            console.log(d);
+            tagApi.tagsManager("pushTag", d.name);
+            $('.typeahead').typeahead('val', "");
+        });
+    };
+    
 
     log("bottle loaded");
     var results;
