@@ -7,7 +7,7 @@ $(document).ready(function() {
         if (bottleMsg != null) {
             $("#hidden-until-bottle").toggle();
             // $("#hidden-when-bottle").toggle();
-            $("#found").text(bottleMsg);
+            setFoundText(bottleMsg);
         } else {
             $("#hidden-when-bottle").toggle();
         }
@@ -209,8 +209,7 @@ $(document).ready(function() {
                     $.totalStorage("bottleId", data.id);
                     $.totalStorage("bottleTags", data.tags);
 
-                    $("#found").text(data.text);
-                    $("#found-mobile").text(data.text);
+                    setFoundText(data.text);
                     $("#hidden-until-bottle").slideToggle();
                     $("#hidden-when-bottle").slideToggle();
                 } else {
@@ -219,6 +218,12 @@ $(document).ready(function() {
             }
         });
     });
+
+    function setFoundText(text) {
+        $("#found").text(text);
+        $("#found-mobile").text(text)
+        $("#found-tags").text("tagged as: " + $.totalStorage("bottleTags"));
+    }
 
     function cleanseLocalStorage() {
         // delete from local storage
