@@ -52,6 +52,10 @@ $(document).ready(function() {
             letterContents = $("#found").text() + "\n\n" + letterContents;
         }
 
+        // delete from local storage
+        $.totalStorage.deleteItem("bottleMsg");
+        $.totalStorage.deleteItem("bottleId");
+
         $("#throw").prop("disabled", true);
         var vals = $("#search-bar").val();
         var tagArr = tagApi.tagsManager('tags');
@@ -103,7 +107,7 @@ $(document).ready(function() {
     });
 
     function makeDiv(posx, posy){
-        $newdiv = $('<img>').attr("src", "http://i867.photobucket.com/albums/ab239/123peeaboo/flame.gif~original");
+        $newdiv = $('<img>').attr("src", "/img/flame.gif");
 
         var posx = ($(document).width() / 2 + ((Math.random() - 0.5) * ($(document).width() / 2 ))).toFixed();
         var posy = ($(document).height() / 2 + ((Math.random() - 0.5) * ($(document).height() / 2 ))).toFixed();
@@ -119,6 +123,9 @@ $(document).ready(function() {
     $("#burn").on("click", function() {
         log("burned the contents of the letter");
         $.growl({title: "Letter BURNT", message: "never to be seen again q.q"});
+        // delete from local storage
+        $.totalStorage.deleteItem("bottleMsg");
+        $.totalStorage.deleteItem("bottleId");
 
         var flames = [];
         function makeFlames(){
@@ -173,17 +180,14 @@ $(document).ready(function() {
                 console.log(data);
                 if (data.id) {
                     $("#notice").hide();
-                    var btn = $("<button>");
-
-                    btn.text("click me");
-                    $("#results").append(btn);
-
-                    btn.on("click", function (){
-                        console.log(results);
-                        $("#found").text(data.text);
-                        $("#hidden-until-bottle").slideToggle();
-                        $("#hidden-when-bottle").slideToggle();
-                    });
+                    // CHECK TO SEE IF THIS WORKS; WELL WHEN SMEETS HAS WOKEN
+                    // UP ANYWAY
+                    $.totalStorage("bottleMsg", data.text);
+                    $.totalStorage("bottleId", data.id);
+                    ////////////////////////////////
+                    $("#found").text(data.text);
+                    $("#hidden-until-bottle").slideToggle();
+                    $("#hidden-when-bottle").slideToggle();
                 } else {
                     $.growl({ title: "error", message: "no bottles sighted! try a different search" });
                 }

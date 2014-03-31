@@ -10,30 +10,34 @@ block content
             a(href="http://twitter.com/cblgh").linky.
                 Alexander Cobleigh
             |.
+            p.text
+                |If you for some reason want to mine the letters posted here, then
+                | by all means use our api.
+            div.text
+                | Search for a bottle (aka letter) by tags, returns JSON:
+            | GET /api/bottles?tags=tag1&tags=tag2&tags=tag3
+            p
+                div.text
+                    | Get all tags, returns JSON:
+                | GET /api/tags
+            p
+                div.text
+                    | Update/create a bottle with tags, use a json object please.
+                | PUT /api/bottles?{tags: [tag1, tag2], text: "text"(, index: id)}
+            p
+                div.text
+                    | Remove a post, burn the letter. Hard.
+                | DELETE /api/bottles?index=id
 
         p.mobile-grid-100.grid-100.text
-            |If you for some reason want to mine the letters posted here, then
-            | by all means use our api.
+            | wave generator powered by 
+            a(href="http://paperjs.org/about").linky.
+                paper.js
             br
-            br
-            | Search for a bottle (post) by some tags, returns JSON:
-            br
-            | GET /api/bottles?tags=tag1&tags=tag2&tags=tag3
-            br
-            br
-            | Get all tags, returns JSON:
-            br
-            | GET /api/tags
-            br
-            br
-            | Update/create a bottle with tags, use a json object please.
-            br
-            | PUT /api/bottles?{tags: [tag1, tag2], text: "text"(, index: id)}
-            br
-            br
-            | Remove a post, burn the letter. Hard.
-            br
-            | DELETE /api/bottles?index=id
+            | favicon by 
+            a(href="http://thenounproject.com/term/bottle/4614/").linky.
+                Jiayuan Peng
+
 
     a(href="/read").mobile-grid-100.grid-30.prefix-35
         button.btn gather some bottles!
