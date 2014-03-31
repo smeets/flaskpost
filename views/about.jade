@@ -15,10 +15,26 @@ block content
             |If you for some reason want to mine the letters posted here, then
             | by all means use our api.
             br
-            | Instructions:
- 
-        p.mobile-grid-100.grid-100.text.
-           write some letters yeah? 
+            br
+            | Search for a bottle (post) by some tags, returns JSON:
+            br
+            | GET /api/bottles?tags=tag1&tags=tag2&tags=tag3
+            br
+            br
+            | Get all tags, reurns JSON:
+            br
+            | GET /api/tags
+            br
+            br
+            | Update/Create a bottle with tags, use a json object please.
+            br
+            | PUT /api/bottles?{tags: [tag1, tag2], text: "text"(, index: id)}
+            br
+            br
+            | Remove a post, burn the him. Hard.
+            br
+            | DELETE /api/bottles?index=id
+
     a(href="/read").mobile-grid-100.grid-30.prefix-35
         button.btn gather some bottles!
 
