@@ -77,7 +77,7 @@ $(document).ready(function() {
             tagArr = [];
         }
 
-        if (vals.length > 0) {
+        if (vals.length > 0 && tagArr.length === 0) {
             tagArr.push(vals);
         }
        
@@ -115,7 +115,6 @@ $(document).ready(function() {
 
     $("#letter-desktop").on("keyup", function() {
         var contents = $("#letter-desktop").val();
-        log(contents);
         $("#letter").val(contents);
     });
 

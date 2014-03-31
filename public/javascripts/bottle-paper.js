@@ -1,5 +1,4 @@
 var values = {
-    friction: 0.8,
     amount: 15,
     mass: 2,
     count: 0
@@ -8,6 +7,8 @@ var values = {
 values.invMass = 1 / values.mass;
 
 var path, springs;
+var freqs, amps;
+var factor = 1;
 var size = view.size * [1.2, 1];
 
 var Spring = function(a, b, strength, restLength) {
@@ -34,7 +35,7 @@ function createPath(strength) {
     var path = new Path({
         fillColor: {
             gradient: {
-                stops: [new Color(0.2, 0.2, 0.6), new Color(0.15, 0.15, 0.4), new Color(0.0, 0.0, 0.3)]
+                stops: [new Color(0.2, 0.2, 0.6), new Color(0.15, 0.15, 0.4), new Color(0.0, 0.0, 0.2)]
             },
             origin: view.center,
             destination: view.center + size * [0, 0.5]
@@ -62,12 +63,20 @@ function createPath(strength) {
 function onResize() {
     if (path)
         path.remove();
+    
     size = view.bounds.size * [2, 1];
+    factor = size.width / 1200;
+
     path = createPath(0.1);
-    console.log("resized: " + view.viewSize.width + "x" + view.viewSize.height);
 }
 
 var canvas = $("#canvas1");
+freqs = [],
+amps = [];
+for (var i = 0; i <= values.amount; i++) {
+    freqs[i] = Math.random() * 5;
+    amps[i] = Math.random() * 7 + 3; 
+}
 
 $(window).resize(resizeAndRedrawCanvas);
 
@@ -80,9 +89,6 @@ function resizeAndRedrawCanvas()
     if (desiredHeight < windowHeight) {
         desiredHeight = windowHeight;
     };
-
-    console.log(desiredWidth + "*" + desiredHeight);
-    console.log(canvas);
 
     canvas.width = desiredWidth;
     canvas.height = desiredHeight; 
@@ -103,7 +109,7 @@ function onFrame(event) {
 function updateWave(path, time) {
     for (var i = 0, l = path.segments.length; i < l; i++) {
         var point = path.segments[i].point;
-        point.y = Math.max(point.py + Math.sin(time * (10 - i)) * (1 + i), -5);
+        point.y = point.py + Math.sin(time * freqs[i]) * amps[i] * factor;
     }
     for (var j = 0, l = springs.length; j < l; j++) {
         springs[j].update();
