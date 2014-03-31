@@ -120,9 +120,12 @@ $(document).ready(function() {
         }).appendTo( 'body' ).fadeIn(100);
     };
 
+    var burnMsgs = ["never to be seen again q.q", "to a crisp", "its okay it doesnt hold anything against you",
+                    "*poof*", "*crackle* *crackle* *pop*", "Letter-B-Gone-o-tron activated!",
+                    "burnnn", "the flame of poetry is quite warming, no?"];
     $("#burn").on("click", function() {
         log("burned the contents of the letter");
-        $.growl({title: "Letter BURNT", message: "never to be seen again q.q"});
+        $.growl({title: "Letter BURNT", message: burnMsgs[Math.floor(Math.random() * burnMsgs.length)]});
         // delete from local storage
         $.totalStorage.deleteItem("bottleMsg");
         $.totalStorage.deleteItem("bottleId");
