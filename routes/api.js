@@ -2,19 +2,35 @@
 
 var elasticsearch = require('elasticsearch');
 var Model = require('../model.js');
+var winston = require('winston');
+
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: '/var/log/flaskpost.log'})
+    ],
+    exceptionHandlers: [
+        new winston.transports.File({ filename: '/var/log/flaskpost_exceptions.log' })
+    ]
+});
 
 var esClient = new elasticsearch.Client({
-    host: '192.168.1.146:9200', // TODO: alter to proper host url
-    log: 'trace'
+    host: 'localhost:9200', // TODO: alter to proper host url
+    log: {
+        type: 'file',
+        level: 'trace',
+        path: '/var/log/elasticsearch_flaskpost.log'
+    }
 });
 
 var redis = require("redis"),
-    redisClient = redis.createClient(6379, "192.168.1.146");
+    redisClient = redis.createClient(6379, "localhost");
 
 var es_index = "flaskpost",
     es_type = "bottle";
 
 exports.index = function (req, res){
+    logger.info("/api requested");
     esClient.info(function (err, response, status) {
         res.send(response);
     });
@@ -34,10 +50,12 @@ exports.tags = function (req, res) {
     } else {
         res.json(cachedTagList);
     }
+   logger.info(" GET /tags ", { tags : cachedTagList });
 }
 
 exports.update = function(req, res){
     var model = new Model(req.body.text, req.body.tags);
+    logger.info(" PUT /api/bottles", { model : model, index: req.body.index });
 
     res.json({resp : "wawaw"});
     
@@ -46,7 +64,6 @@ exports.update = function(req, res){
             // Only add tags if message was created (no provided index)
             for (var i = 0, l = req.body.tags.length; i < l; i++) {
                 redisClient.incr(req.body.tags[i], function (err, rep){
-                    console.log(rep);
                     if (rep === 1) {
                         hasChanged = true;
                     }
@@ -82,6 +99,7 @@ function decrementTag(tag) {
     redisClient.decr(tag, function (err, reply) {
         if (reply === 0) {
             redisClient.del(tag, function (error, response) {
+                logger.info("deleted tag '" + tag + "'");
                 hasChanged = true;
             });
         }
@@ -90,6 +108,7 @@ function decrementTag(tag) {
 
 exports.delete = function(req, res){
     var index = req.body.index;
+    logger.info("DELETE /api/bottles", { id: index });
     if (index) {
         esClient.get({
             index: es_index,
@@ -97,13 +116,15 @@ exports.delete = function(req, res){
             id: index
         }, function (error, response) {
             if (error) {
-                console.trace(error);
+                //console.trace(error);
+                logger.warn("DELETE /api/bottles - error", { id: index, response: response });
             } else {
                 esClient.delete({
                     index: es_index,
                     type: es_type,
                     id: index
                 }, function (err, resp) {
+                    logger.info("DELETE /api/bottles ok", { id: index });
                     res.json({status: "200", response: "all goody here"});
                 });
                 var tags = response._source.tags;
@@ -132,8 +153,10 @@ function markDocumentTaken(safeObject){
 
 function searchCallback(error, response, res) {
     if (error) {
+        logger.warn("GET /api/bottles", { error: error });
         res.json(500, {resp : "no beef"});
     } else {
+        logger.info("GET /api/bottles - results", { hits: response.hits.total  });
         if (response.hits.total > 0) {
             var safeObject = {
                 id: response.hits.hits[0]._id,
@@ -155,7 +178,7 @@ exports.search = function(req, res){
     // GET request (query)
     var tagList = req.query.tags;
     var query = {};
-
+    
     if (tagList) {
         if (!(tagList instanceof Array)) {
             tagList = [];
@@ -180,7 +203,7 @@ exports.search = function(req, res){
             }
         };
     }
-
+    logger.info("GET /api/bottles", { query: query });
     esClient.search({
         index: es_index,
         type: es_type,

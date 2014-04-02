@@ -10,6 +10,7 @@
     "jade": "*",
     "elasticsearch": "2.1.0",
     "less-middleware": "*",
-    "redis": "*"
+    "redis": "*",
+    "hiredis": "*"
   }
 }

@@ -68,7 +68,11 @@ $(document).ready(function() {
         // if we're reading and appending to an old letter
         if ($("#found").text().length > 0) {
             // append comments
-            letterContents = $("#found").text() + "\n\n" + letterContents;
+            if (letterContents.length > 0) {
+                letterContents = $("#found").text() + "\n\n" + letterContents;
+            } else {
+                letterContents = $("#found").text();
+            }
         }
 
 

@@ -13,10 +13,10 @@ var path = require('path');
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', '8000');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(require('less-middleware')(path.join(__dirname, 'public') ));
+//app.use(require('less-middleware')(path.join(__dirname, 'public') ));
 
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -38,7 +38,10 @@ app.get('/api/bottles', api.search);
 app.put('/api/bottles', api.update);
 app.get('/api/tags', api.tags);
 app.delete('/api/bottles', api.delete);
-
+app.post('/xmlrpc.php', function (req, res){
+    console.log(req);
+    res.send(404);
+});
 app.get("/", routes.index);
 app.get("/about", function(req, res) {
     res.render('about', { title: 'flaskpost' })
