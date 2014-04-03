@@ -175,8 +175,13 @@ exports.search = function(req, res){
         };
     } else {
         query = {
-            filter: {
-                match_all: { }
+            query: {
+                function_score: { 
+                    query : { match_all: {} },
+                    // boost_mode: "replace", not sure what this does, maybe
+                    // uncomment if it doesn't work? :D
+                    random_score: {},
+                }
             }
         };
     }
