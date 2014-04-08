@@ -86,7 +86,7 @@ $(document).ready(function() {
         }
        
         for(var i=0; i < tagArr.length; i++) {
-            tagArr[i] = tagArr[i].replace(/[\W_]/g, '');
+            tagArr[i] = tagArr[i].replace(/[+-.,!@#$%^&*();\/|<>"'\]\[\{\}\*\`]/g, '');
         }
 
         var data = {
@@ -197,7 +197,7 @@ $(document).ready(function() {
         log(tagApi.tagsManager('tags'));
        
         for(var i=0; i < tagArr.length; i++) {
-            tagArr[i] = tagArr[i].replace(/[\W_]/g, '');
+            tagArr[i] = tagArr[i].replace(/[+-.,!@#$%^&*();\/|<>"'\]\[\{\}\*\`]/g, '');
         }
 
         log("adadadadad");
