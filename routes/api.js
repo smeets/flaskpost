@@ -55,7 +55,7 @@ exports.tags = function (req, res) {
 
 exports.update = function(req, res){
     var model = new Model(req.body.text, req.body.tags);
-    logger.info(" PUT /api/bottles", { model : model, index: req.body.index });
+    logger.info(" PUT /api/bottles", { index: req.body.index });
 
     res.json({resp : "wawaw"});
     
@@ -154,9 +154,9 @@ function markDocumentTaken(safeObject){
 function searchCallback(error, response, res) {
     if (error) {
         logger.warn("GET /api/bottles", { error: error });
-        res.json(500, {resp : "no beef"});
+        res.json(500, {resp : "server error"});
     } else {
-        logger.info("GET /api/bottles - results", { hits: response.hits.total  });
+        logger.info("GET /api/bottles - results", { hits: response.hits.total });
         if (response.hits.total > 0) {
             var safeObject = {
                 id: response.hits.hits[0]._id,
